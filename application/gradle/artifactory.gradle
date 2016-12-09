@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: "com.jfrog.artifactory"
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId project.name
+            version project.version
+        }
+    }
+}
+
+artifactory {
+    contextUrl = config.binaryRepository.url
+    publish {
+        repository {
+            repoKey = config.binaryRepository.name
+            username = config.binaryRepository.username
+            password = config.binaryRepository.password
+            maven = true
+        }
+        defaults {
+            publications('mavenJava')
+        }
+    }
+    resolve {
+        repoKey = 'jcenter'
+    }
+}

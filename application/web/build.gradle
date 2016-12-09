@@ -1,0 +1,14 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'web'
+	version = '0.0.1-SNAPSHOT'
+}
+
+dependencies {
+	compile project(':dto')
+	compile project(':service')
+	compile("org.springframework.boot:spring-boot-devtools")
+	compile('org.springframework.boot:spring-boot-starter-web')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}

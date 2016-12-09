@@ -1,0 +1,14 @@
+apply plugin: 'pmd'
+apply plugin: 'java'
+
+pmd {
+    ignoreFailures = true
+}
+
+tasks.withType(Pmd) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+

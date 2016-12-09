@@ -1,0 +1,17 @@
+apply plugin: 'checkstyle'
+
+checkstyle {
+    configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+}
+
+task checkstyleHtml << {
+    ant.xslt(in: checkstyleMain.reports.xml.destination,
+            style: file("${rootDir}/config/checkstyle/checkstyle.xsl"),
+            out: new File(checkstyleMain.reports.xml.destination.parent, 'main.html'))
+}
+
+checkstyleMain.finalizedBy checkstyleHtml
+
+task quality(dependsOn:['checkstyleMain']) << {
+    checkstyleReport.execute()
+}

@@ -1,0 +1,55 @@
+buildscript {
+	ext {
+		springBootVersion = "1.4.2.RELEASE"
+		artifactoryVersion = "4.4.0"
+	}
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("org.jfrog.buildinfo:build-info-extractor-gradle:${artifactoryVersion}")
+	}
+}
+
+allprojects {
+	apply plugin: "idea"
+	apply plugin: "eclipse"
+	apply plugin: "java"
+
+	apply plugin: "groovy"
+	apply plugin: "jacoco"
+	apply plugin: "com.jfrog.artifactory"
+	apply from: "${rootDir}/gradle/versioning.gradle"
+
+	repositories {
+		mavenCentral()
+	}
+}
+
+def buildConfig() {
+    def configFile = file("$rootDir/gradle/config/buildConfig.groovy")
+    def parsedConfig = new ConfigSlurper().parse(configFile.toURL())
+    ext.config = parsedConfig
+}
+
+configure(subprojects) {
+	apply from: "${rootDir}/gradle/versioning.gradle"
+	apply from: "${rootDir}/gradle/assemble.gradle"
+
+    buildConfig()
+    apply from: "${rootDir}/gradle/artifactory.gradle"
+    artifactoryPublish.dependsOn build
+}
+
+jar {
+	baseName = "sbsk"
+}
+
+dependencies {
+		compile project(":web")
+}
+
+apply from: "${rootDir}/gradle/jacoco-multi-project.gradle"

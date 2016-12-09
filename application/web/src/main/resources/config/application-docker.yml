@@ -1,0 +1,13 @@
+# Remote devtools for Docekr remote debug (RemoteDevToolsProperties)
+# spring:
+#   devtools:
+#     remote:
+#       proxy:
+#         host:  # The host of the proxy to use to connect to the remote application.
+#         port:  # The port of the proxy to use to connect to the remote application.
+#       debug.enabled: true # Enable remote debug support.
+#       debug.local-port: 8000 # Local remote debug server port.
+#       context-path: /.~~spring-boot!~ # Context path used to handle the remote connection.
+#       restart.enabled: true # Enable remote restart.
+#       secret:  # A shared secret required to establish a connection (required to enable remote support).
+#       secret-header-name: X-AUTH-TOKEN # HTTP header used to transfer the shared secret.

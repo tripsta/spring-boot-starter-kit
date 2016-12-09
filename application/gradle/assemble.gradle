@@ -1,0 +1,19 @@
+/*The Artifactory Plugins for CI servers use a property file to pass information to the build tool process (Gradle, Maven or Ivy). The Artifactory build-tool Plugin code (running as part of the build-tool process) uses the data of in the file for artifact resolution and deployment from/to Artifactory, as well as for deployment of the build information to Artifactory.
+When this code is not invoked by a CI server, this message is not relevant, and therefore is not an indication for an issue.*/
+
+task createBuildInfoFile doLast {
+    def buildInfoFile = new File("$buildDir/build-info.properties")
+    Properties properties = new Properties()
+    properties.setProperty('version', project.version.toString())
+    properties.setProperty('timestamp', project.buildTimestamp)
+    properties.store(buildInfoFile.newWriter(), null)
+}
+
+jar {
+    dependsOn createBuildInfoFile
+    baseName = project.jar.baseName
+  	from(buildDir) {
+		include 'build-info.properties'
+		into('/')
+	}
+}

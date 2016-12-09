@@ -1,0 +1,16 @@
+# Server properties
+server:
+  display-name: spring-boot-starter-kit # Display name of the application.
+  port: 8080
+  tomcat:
+    max-threads: 400
+    compression: on
+    compressableMimeTypes: application/json
+  error:
+    include-stacktrace: never # When to include a "stacktrace" attribute.
+    path: /error # Path of the error controllers.
+    whitelabel.enabled: true # Enable the default error page displayed in browsers in case of a server error.
+
+# Web specific properties
+api:
+  basepath: /api/v1

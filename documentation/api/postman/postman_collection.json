@@ -1,0 +1,112 @@
+{
+    "variables": [],
+    "info": {
+        "name": "spring-boot-starter-kit",
+        "_postman_id": "e45f1f07-79d1-5c3a-7ddf-9600ad521de1",
+        "description": "",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [{
+            "name": "/api/v1/user/get?name=Winnie the Pooh",
+            "request": {
+                "url": "http://localhost:8080/api/v1/user/get?name=Winnie the Pooh",
+                "method": "GET",
+                "header": [{
+                        "key": "Authorization",
+                        "value": "Basic dHBqbXoyaHp2cDRqYTVuNm5tanl5ZTZhaHJmdGhkYzk6Q2FMa0NkRmJRbXpDbE9JbjNnYkJFb21hZGh3MGU0UjY=",
+                        "description": ""
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "description": ""
+                    },
+                    {
+                        "key": "Cache-Control",
+                        "value": "no-cache",
+                        "description": ""
+                    },
+                    {
+                        "key": "Postman-Token",
+                        "value": "06ff5bda-d23e-6fb4-464d-1513e1e223f4",
+                        "description": ""
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"firstName\":\"Nikos\",\"lastName\":\"Fousekis\",\"age\":18}"
+                },
+                "description": ""
+            },
+            "response": []
+        },
+        {
+            "name": "/api/v1/user/get-dto",
+            "request": {
+                "url": "http://localhost:8080/api/v1/user/get-dto",
+                "method": "GET",
+                "header": [{
+                        "key": "Authorization",
+                        "value": "Basic dHBqbXoyaHp2cDRqYTVuNm5tanl5ZTZhaHJmdGhkYzk6Q2FMa0NkRmJRbXpDbE9JbjNnYkJFb21hZGh3MGU0UjY=",
+                        "description": ""
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "description": ""
+                    },
+                    {
+                        "key": "Cache-Control",
+                        "value": "no-cache",
+                        "description": ""
+                    },
+                    {
+                        "key": "Postman-Token",
+                        "value": "06ff5bda-d23e-6fb4-464d-1513e1e223f4",
+                        "description": ""
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"firstName\":\"Nikos\",\"lastName\":\"Fousekis\",\"age\":18}"
+                },
+                "description": ""
+            },
+            "response": []
+        },
+        {
+            "name": "/api/v1/user/create",
+            "request": {
+                "url": "http://localhost:8080/api/v1/user/create",
+                "method": "POST",
+                "header": [{
+                        "key": "Authorization",
+                        "value": "Basic dHBqbXoyaHp2cDRqYTVuNm5tanl5ZTZhaHJmdGhkYzk6Q2FMa0NkRmJRbXpDbE9JbjNnYkJFb21hZGh3MGU0UjY=",
+                        "description": ""
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "description": ""
+                    },
+                    {
+                        "key": "Cache-Control",
+                        "value": "no-cache",
+                        "description": ""
+                    },
+                    {
+                        "key": "Postman-Token",
+                        "value": "06ff5bda-d23e-6fb4-464d-1513e1e223f4",
+                        "description": ""
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"firstName\":\"Nikos\",\"lastName\":\"Fousekis\",\"age\":18}"
+                },
+                "description": "Generated from a curl request: \ncurl -X POST -H \\\"Authorization: Basic dHBqbXoyaHp2cDRqYTVuNm5tanl5ZTZhaHJmdGhkYzk6Q2FMa0NkRmJRbXpDbE9JbjNnYkJFb21hZGh3MGU0UjY=\\\" -H \\\"Content-Type: application/json\\\" -H \\\"Cache-Control: no-cache\\\" -H \\\"Postman-Token: 06ff5bda-d23e-6fb4-464d-1513e1e223f4\\\" -d '{\\\"firstName\\\":\\\"Nikos\\\",\\\"lastName\\\":\\\"Fousekis\\\",\\\"age\\\":18}' \\\"http://localhost:8080/api/v1/user/create\\\""
+            },
+            "response": []
+        }
+    ]
+}

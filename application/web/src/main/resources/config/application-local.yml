@@ -1,0 +1,3 @@
+# Add any local configuration properties you don't need to add to versioning.
+# keep in mind you need to add 'local' profile to load this file:
+# SPRING_PROFILES_ACTIVE=$SPRING_PROFILES_ACTIVE,local

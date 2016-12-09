@@ -1,0 +1,15 @@
+apply plugin: 'org.springframework.boot'
+
+bootRepackage.enabled = false
+bootRun.enabled = false
+
+jar {
+	baseName = 'persistence'
+	version = '0.0.1-SNAPSHOT'
+}
+
+dependencies {
+	compile('com.h2database:h2')
+	compile("org.springframework:spring-jdbc")
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+}

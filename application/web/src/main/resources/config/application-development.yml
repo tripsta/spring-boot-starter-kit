@@ -1,0 +1,6 @@
+# Server properties
+server:
+  error:
+    include-stacktrace: always  # When to include a "stacktrace" attribute.
+    path: /error # Path of the error controllers.
+    whitelabel.enabled: false # Enable the default error page displayed in browsers in case of a server error.
