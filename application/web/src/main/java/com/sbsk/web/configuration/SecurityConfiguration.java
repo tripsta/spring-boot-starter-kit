@@ -1,5 +1,6 @@
 package com.sbsk.web.configuration;
 
+import com.sbsk.web.com.sbsk.utils.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -16,6 +17,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     Environment environment;
+
+    @Autowired
+    SpringUtils springUtils;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -37,5 +41,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated()
                 .and()
                 .httpBasic();
+
+        if (springUtils.isDevelopmentProfile()) {
+            http.authorizeRequests().antMatchers("/admin/**").permitAll();
+        }
     }
 }
