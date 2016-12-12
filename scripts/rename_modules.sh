@@ -47,5 +47,9 @@ find . -type d -print |\
 
 echo -e "\n\n *** CHECK AND RUN THE COMMANDS ABOVE AT YOUR OWN RISK"
 
-echo -e "\n\n ### Also, remember to change manually the basename in 'build.gradle', if needed.\nPath: ${CURRENT_PATH}/application/build.gradle\nCurrent value:"
+echo -e "\n\n ### Remember to change manually the basename in 'build.gradle', if needed.\nPath: ${CURRENT_PATH}/application/build.gradle\nCurrent value:"
 cat "${CURRENT_PATH}/application/build.gradle" | grep "baseName"
+
+echo -e "\n\n ### Also, remember to change manually the display-name in 'application.yml', if needed.\nPath: ${CURRENT_PATH}/application/web/src/main/resources/config/application.yml\nCurrent value:"
+cat "${CURRENT_PATH}/application/web/src/main/resources/config/application.yml" | grep "display-name"
+
