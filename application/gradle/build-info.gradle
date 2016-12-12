@@ -1,0 +1,11 @@
+springBoot  {
+    buildInfo {
+        additionalProperties = [
+                'springBootVersion': "${springBootVersion}",
+                'artifactoryVersion': "${artifactoryVersion}",
+                'gradleGitPropertiesVersion': "${gradleGitPropertiesVersion}",
+                'project.rootDir': "${project.rootDir}",
+                'project.buildDir': "${project.buildDir}"
+        ]
+    }
+}

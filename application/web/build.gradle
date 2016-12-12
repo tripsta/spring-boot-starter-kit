@@ -15,3 +15,6 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile("org.springframework.security:spring-security-test")
 }
+
+apply from: "${rootDir}/gradle/build-info.gradle"
+apply from: "${rootDir}/gradle/git-info.gradle"

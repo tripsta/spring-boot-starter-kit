@@ -11,10 +11,23 @@ server:
     path: /error # Path of the error controllers.
     whitelabel.enabled: true # Enable the default error page displayed in browsers in case of a server error.
 
+
 # Web specific properties
 api:
   basepath: /api/v1.0.0
 
-# Security
+# Security properties
+security:
+  enable-csrf: true
+
+# Informative endpoints
 management:
   context-path: /admin
+  info:
+    build:
+      enabled: true
+    defaults:
+      enabled: true
+    git:
+      enabled: true
+      mode: full

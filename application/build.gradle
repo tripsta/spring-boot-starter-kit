@@ -2,15 +2,18 @@ buildscript {
 	ext {
 		springBootVersion = "1.4.2.RELEASE"
 		artifactoryVersion = "4.4.0"
+		gradleGitPropertiesVersion = "1.4.17"
 	}
 	repositories {
 		mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
 		jcenter()
 	}
 
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("org.jfrog.buildinfo:build-info-extractor-gradle:${artifactoryVersion}")
+        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gradleGitPropertiesVersion}"
 	}
 }
 
