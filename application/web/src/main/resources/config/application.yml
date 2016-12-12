@@ -16,10 +16,6 @@ server:
 api:
   basepath: /api/v1.0.0
 
-# Security properties
-security:
-  enable-csrf: true
-
 # Informative endpoints
 management:
   context-path: /admin

@@ -35,12 +35,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                // since we have a stateless API we dont need CSRF
+                .csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/public/**").permitAll()
+                .antMatchers("/admin/ping").permitAll()
                 .antMatchers("/admin/health").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated()
                 .and()
                 .httpBasic();
+
+        http.headers().frameOptions().disable();
 
         if (springUtils.isDevelopmentProfile()) {
             http.authorizeRequests().antMatchers("/admin/**").permitAll();

@@ -4,7 +4,7 @@ spring:
   h2:
     console:
       enabled: true # Enable the console
-      path: /admin/h2-console # Path at which the console will be available
+      path: /admin/h2 # Path at which the console will be available
       settings:
         trace: false # Enable trace output
         web-allow-others: true # Enable remote access
