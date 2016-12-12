@@ -13,4 +13,8 @@ server:
 
 # Web specific properties
 api:
-  basepath: /api/v1
+  basepath: /api/v1.0.0
+
+# Security
+management:
+  context-path: /admin

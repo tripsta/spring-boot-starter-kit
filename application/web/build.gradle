@@ -8,7 +8,10 @@ jar {
 dependencies {
 	compile project(':dto')
 	compile project(':service')
-	compile("org.springframework.boot:spring-boot-devtools")
+	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-security')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile("org.springframework.security:spring-security-test")
 }

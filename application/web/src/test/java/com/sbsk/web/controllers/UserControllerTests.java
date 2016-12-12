@@ -2,6 +2,8 @@ package com.sbsk.web.controllers;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -9,10 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -20,9 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest
 public class UserControllerTests {
 
-	private static final String URI = "/api/v1/user";
 	private static final String GET_RESPONSE = "hey Nikos";
-
 	private static final String CREATE_REQUEST = new JSONObject()
 												.put("firstName", "Nikos")
 												.put("lastName", "Koukos")
@@ -39,16 +39,21 @@ public class UserControllerTests {
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 
+	@Autowired
+	private Environment environment;
+
 	private MockMvc mockMvc;
+	private static String URI;
 
 	@Before
-	public void setupMockMvc() {
+	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+		URI = environment.getProperty("api.basepath") + "/user";
 	}
 
 	@Test
 	public void getUser_shouldReturnCorrectUser() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get(URI + "/get")
+		mockMvc.perform(get(URI + "/get")
 				.param("name", "Nikos"))
 				.andExpect(status().isOk())
 				.andExpect(content().string(GET_RESPONSE));
@@ -56,7 +61,7 @@ public class UserControllerTests {
 
 	@Test
 	public void getDtoUser_shouldReturnCorrectUserResponseDto() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get(URI + "/get-dto"))
+		mockMvc.perform(get(URI + "/get-dto"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
 				.andExpect(content().json(RESPONSE));
@@ -64,12 +69,11 @@ public class UserControllerTests {
 
 	@Test
 	public void createUser_shouldReturnUserResponseDto_whenGivenUserRequestDto() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post(URI + "/create")
+		mockMvc.perform(post(URI + "/create")
 				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
 				.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
 				.content(CREATE_REQUEST))
 				.andExpect(status().isOk())
 				.andExpect(content().json(RESPONSE));
 	}
-
 }
