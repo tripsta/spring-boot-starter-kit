@@ -35,4 +35,8 @@ public interface ApiResponse extends ErrorContainer {
 	boolean isSuccess();
 
 	void setSuccessful();
+
+	Object retrieveMetadata(String key);
+
+	void insertMetadata(String key, Object obj);
 }

@@ -5,11 +5,12 @@ import java.util.Map;
 
 public class ApiBaseResponse extends GenericErrorContainer implements ApiResponse {
 
-	private static final String API_VERSION = "0.1";
+	private static final String API_VERSION = "1.0.0";
 	protected String sid;
 	protected String version;
 	protected boolean success;
 	protected Map<String, Object> data;
+	protected Map<String, Object> metadata;
 
 	public ApiBaseResponse() {
 		this.version = API_VERSION;
@@ -40,6 +41,17 @@ public class ApiBaseResponse extends GenericErrorContainer implements ApiRespons
 	public Object retrieveData(String key) {
 		return (data != null) ? data.get(key) : null;
 	}
+	
+	@Override
+	public void insertMetadata(String key, Object obj) {
+		metadata = metadata != null ? metadata : new HashMap<String, Object>();
+		metadata.put(key, obj);
+	}
+
+	@Override
+	public Object retrieveMetadata(String key) {
+		return (metadata != null) ? metadata.get(key) : null;
+	}
 
 	@Override
 	public boolean isSuccess() {
@@ -58,6 +70,14 @@ public class ApiBaseResponse extends GenericErrorContainer implements ApiRespons
 	public void setData(Map<String, Object> data) {
 		this.data = data;
 	}
+	
+	public Map<String, Object> getMetadata() {
+		return metadata;
+	}
+
+	public void setMetadata(Map<String, Object> metadata) {
+		this.metadata = metadata;
+	}
 
 	public void setVersion(String version) {
 		this.version = version;
@@ -69,7 +89,7 @@ public class ApiBaseResponse extends GenericErrorContainer implements ApiRespons
 
 	@Override
 	public String toString() {
-		return "BaseAddOnsApiResponse [sid=" + sid + ", version=" + version + ", success=" + success + ", data=" + data + ", errors=" + getErrors() + ", warnings="
+		return "BaseAddOnsApiResponse [sid=" + sid + ", version=" + version + ", success=" + success + ", data=" + data + ", metadata=" + metadata + ", errors=" + getErrors() + ", warnings="
 				+ getWarnings() + "]";
 	}
 
