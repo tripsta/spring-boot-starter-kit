@@ -20,6 +20,18 @@ task codeCoverage(type: JacocoReport, dependsOn: [jacocoTestReport], group: "ver
 	  csv.enabled false
 	}
 
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(
+                    dir: it,
+                    exclude: [
+                        'com/*/dto/**',
+                        'com/*/persistence/entity/**',
+                    ]
+            )
+        })
+    }
+
 	doLast {
 		println "Coverage report for all projects: file://${buildDir}/reports/jacoco/index.html"
 	}

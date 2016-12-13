@@ -50,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
 
         if (springUtils.isDevelopmentProfile()) {
-            http.authorizeRequests().antMatchers("/admin/**").permitAll();
+            http.authorizeRequests().antMatchers("**").permitAll();
         }
     }
 }

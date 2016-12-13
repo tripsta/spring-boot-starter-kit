@@ -2,3 +2,7 @@
 server:
   # Time in milliseconds that connectors will wait for another HTTP request before closing the connection
   connection-timeout: 60000
+
+# Logging
+logging:
+  path: /var/log/spring-boot
