@@ -1,0 +1,8 @@
+<included>
+    <property name="FLUENTD_REMOTE_HOST" value="127.0.0.1"/>
+    <property name="FLUENTD_REMOTE_PORT" value="24224"/>
+    <property name="FLUENTD_LOG_LEVEL" value="WARN"/>
+    <property name="FLUENTD_MAX_THREADS" value="4"/>
+    <property name="FLUENTD_TAG" value="spring.boot"/>
+    <property name="FLUENTD_LABEL" value="sbsk.application"/>
+</included>

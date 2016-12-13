@@ -1,35 +1,36 @@
 buildscript {
-	ext {
-		springBootVersion = "1.4.2.RELEASE"
-		artifactoryVersion = "4.4.0"
-		gradleGitPropertiesVersion = "1.4.17"
-	}
-	repositories {
-		mavenCentral()
+    ext {
+        springBootVersion = "1.4.2.RELEASE"
+        artifactoryVersion = "4.4.0"
+        gradleGitPropertiesVersion = "1.4.17"
+        fluentLoggerVersion = "0.3.2"
+    }
+    repositories {
+        mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
-		jcenter()
-	}
+        jcenter()
+    }
 
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath("org.jfrog.buildinfo:build-info-extractor-gradle:${artifactoryVersion}")
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.jfrog.buildinfo:build-info-extractor-gradle:${artifactoryVersion}")
         classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gradleGitPropertiesVersion}"
-	}
+    }
 }
 
 allprojects {
-	apply plugin: "idea"
-	apply plugin: "eclipse"
-	apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "eclipse"
+    apply plugin: "java"
 
-	apply plugin: "groovy"
-	apply plugin: "jacoco"
-	apply plugin: "com.jfrog.artifactory"
-	apply from: "${rootDir}/gradle/versioning.gradle"
+    apply plugin: "groovy"
+    apply plugin: "jacoco"
+    apply plugin: "com.jfrog.artifactory"
+    apply from: "${rootDir}/gradle/versioning.gradle"
 
-	repositories {
-		mavenCentral()
-	}
+    repositories {
+        mavenCentral()
+    }
 }
 
 def buildConfig() {
@@ -39,8 +40,8 @@ def buildConfig() {
 }
 
 configure(subprojects) {
-	apply from: "${rootDir}/gradle/versioning.gradle"
-	apply from: "${rootDir}/gradle/assemble.gradle"
+    apply from: "${rootDir}/gradle/versioning.gradle"
+    apply from: "${rootDir}/gradle/assemble.gradle"
 
     buildConfig()
     apply from: "${rootDir}/gradle/artifactory.gradle"
@@ -48,11 +49,11 @@ configure(subprojects) {
 }
 
 jar {
-	baseName = "sbsk"
+    baseName = "sbsk"
 }
 
 dependencies {
-		compile project(":web")
+    compile project(":web")
 }
 
 apply from: "${rootDir}/gradle/jacoco-multi-project.gradle"

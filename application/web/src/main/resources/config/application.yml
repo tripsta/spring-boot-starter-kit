@@ -27,3 +27,8 @@ management:
     git:
       enabled: true
       mode: full
+
+# Logging
+logging:
+  config: classpath:config/logback/default.xml
+  file: logs/application.log

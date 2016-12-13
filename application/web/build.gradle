@@ -12,8 +12,11 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-security')
+	compile("org.fluentd:fluent-logger:$fluentLoggerVersion")
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile("org.springframework.security:spring-security-test")
+
 }
 
 apply from: "${rootDir}/gradle/build-info.gradle"

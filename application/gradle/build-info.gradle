@@ -4,6 +4,7 @@ springBoot  {
                 'springBootVersion': "${springBootVersion}",
                 'artifactoryVersion': "${artifactoryVersion}",
                 'gradleGitPropertiesVersion': "${gradleGitPropertiesVersion}",
+                'fluentLoggerVersion': "${fluentLoggerVersion}",
                 'project.rootDir': "${project.rootDir}",
                 'project.buildDir': "${project.buildDir}"
         ]

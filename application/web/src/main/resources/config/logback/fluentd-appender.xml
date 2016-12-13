@@ -1,0 +1,19 @@
+<!-- Import the 2 dashboards below in Kibana: -->
+<!--https://gist.github.com/georgeyord/b22128349cb31c5c93949a19784d1b79-->
+<!--https://gist.github.com/georgeyord/9f11158ed6406bfdc85118e997481411-->
+
+<included>
+    <appender name="FLUENTD"
+              class="com.sbsk.web.logging.appender.FluentAppender">
+        <tag>${FLUENTD_TAG}</tag>
+        <label>${FLUENTD_LABEL}</label>
+        <remoteHost>${FLUENTD_REMOTE_HOST}</remoteHost>
+        <port>${FLUENTD_REMOTE_PORT}</port>
+        <maxThreads>${FLUENTD_MAX_THREADS}</maxThreads>
+
+        # Log level for specific appender
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${FLUENTD_LOG_LEVEL}</level>
+        </filter>
+    </appender>
+</included>

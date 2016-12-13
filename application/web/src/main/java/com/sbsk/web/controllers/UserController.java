@@ -40,16 +40,23 @@ public class UserController {
 		return new UserResponseDto("Nikos", "Koukos", 28, true);
 	}
 
-	@RequestMapping(
-			value = "/create",
-			method = {RequestMethod.POST},
-			produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
-			consumes = MediaType.APPLICATION_JSON_UTF8_VALUE
-	)
-	@ResponseBody
-	public UserResponseDto createUser(
-			@RequestBody UserRequestDto userRequestDto
-	) {
-		return userService.createUser(userRequestDto);
-	}
+    @RequestMapping(
+            value = "/create",
+            method = {RequestMethod.POST},
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @ResponseBody
+    public UserResponseDto createUser(
+            @RequestBody UserRequestDto userRequestDto
+    ) {
+        return userService.createUser(userRequestDto);
+    }
+
+    @RequestMapping(value = "/throw-sample-exception", method = {RequestMethod.GET})
+    public String throwSampleException() {
+	    if(true)
+	        throw new RuntimeException("SampleException");
+        return "Foo";
+    }
 }
