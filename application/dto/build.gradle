@@ -2,3 +2,12 @@ jar {
 	baseName = 'dto'
 	version = '0.0.1-SNAPSHOT'
 }
+
+dependencies {
+	compile (
+	    [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.5'],
+	    [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.5'],
+	    [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.5'],
+	    [group: 'org.apache.commons', name: 'commons-collections4', version: '4.0']
+	)
+}

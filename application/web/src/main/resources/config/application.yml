@@ -14,7 +14,7 @@ server:
 
 # Web specific properties
 api:
-  basepath: /api/v1.0.0
+  basepath: /api/v1
 
 # Informative endpoints
 management:

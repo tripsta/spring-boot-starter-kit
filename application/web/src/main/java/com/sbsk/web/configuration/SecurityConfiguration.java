@@ -43,6 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/ping").permitAll()
                 .antMatchers("/admin/health").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated()
+                .antMatchers("/publicerror").permitAll()
                 .and()
                 .httpBasic();
 
