@@ -18,24 +18,17 @@ fi
 
 echo -e "### CURRENT_PATH: ${CURRENT_PATH}"
 
-echo -e "\n\n### Replacing content in files from '${FROM_MODULE}' to '${TO_MODULE}'"
-egrep -lir "(${FROM_MODULE})" . |\
-  grep ".java" |\
-  # grep -v ".git" |\
-  # grep -v ".html" |\
-  # grep -v ".class" |\
-  # grep -v ".bin" |\
-  # grep -v ".xml" |\
-  # grep -v "build.gradle" |\
-  # grep -v "scripts/" |\
+echo -e "\n\n### Replacing content in files from '${FROM_MODULE}' to '${TO_MODULE}' in '${CURRENT_PATH}'"
+egrep -lir "(${FROM_MODULE})" ${CURRENT_PATH} |\
+  grep '.java\|.xml' |\
   while read TARGET; do
     echo "sed -i 's/${FROM_MODULE}/${TO_MODULE}/g' $TARGET"
   done
 
 FROM_PATH="${FROM_MODULE/./\/}"
 TO_PATH="${TO_MODULE/./\/}"
-echo -e "\n\n### Renaming files from '${FROM_PATH}' to '${TO_PATH}'"
-find . -type d -print |\
+echo -e "\n\n### Renaming files from '${FROM_PATH}' to '${TO_PATH}' in '${CURRENT_PATH}'"
+find ${CURRENT_PATH} -type d -print |\
   grep "${FROM_PATH}$" |\
   grep -v ".git" |\
   grep -v "build.gradle" |\
@@ -52,4 +45,3 @@ cat "${CURRENT_PATH}/application/build.gradle" | grep "baseName"
 
 echo -e "\n\n ### Also, remember to change manually the display-name in 'application.yml', if needed.\nPath: ${CURRENT_PATH}/application/web/src/main/resources/config/application.yml\nCurrent value:"
 cat "${CURRENT_PATH}/application/web/src/main/resources/config/application.yml" | grep "display-name"
-
