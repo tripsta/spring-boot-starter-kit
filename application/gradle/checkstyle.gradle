@@ -1,0 +1,14 @@
+apply plugin: 'checkstyle'
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled false
+        html.enabled true
+        html.stylesheet resources.text.fromFile("${buildDir}/config/xsl/checkstyle-custom.xsl")
+        html.destination "${buildDir}/reports/checkstyle/index.html"
+    }
+
+    doLast {
+        println "Checkstyle report for all projects: file://${buildDir}/reports/checkstyle/index.html"
+    }
+}
