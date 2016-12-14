@@ -1,5 +1,7 @@
 package com.sbsk.model.exception;
+
 import static com.sbsk.model.exception.ExceptionMessages.SESSION_NOT_FOUND;
+
 public class SessionNotFoundException extends GenericException {
 
 	private static final long serialVersionUID = 6627126171351043691L;

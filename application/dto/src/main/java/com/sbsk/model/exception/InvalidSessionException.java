@@ -1,4 +1,5 @@
 package com.sbsk.model.exception;
+
 import static com.sbsk.model.exception.ExceptionMessages.INVALID_SESSION;
 
 public class InvalidSessionException extends GenericException {

@@ -79,10 +79,6 @@ public class ApiBaseResponse extends GenericErrorContainer implements ApiRespons
 		this.metadata = metadata;
 	}
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}

@@ -7,7 +7,7 @@ public class ApiWarning {
 
 	public ApiWarning(String message) {
 		this.message = message;		
-}
+	}
 
 	public String getMessage() {
 		return message;

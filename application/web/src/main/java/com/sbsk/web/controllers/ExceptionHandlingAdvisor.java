@@ -27,10 +27,9 @@ import com.sbsk.model.ApiErrorResponse;
 import com.sbsk.model.exception.ExceptionType;
 import com.sbsk.model.exception.GenericException;
 import com.sbsk.model.exception.InvalidSessionException;
-import com.sbsk.model.exception.NoBrandOrMarketFoundException;
 import com.sbsk.model.exception.NoSessionIdException;
-import com.sbsk.model.exception.SessionNotFoundException;
 import com.sbsk.model.exception.ResourceNotFoundException;
+import com.sbsk.model.exception.SessionNotFoundException;
 
 @ControllerAdvice
 public class ExceptionHandlingAdvisor {
@@ -101,12 +100,6 @@ public class ExceptionHandlingAdvisor {
 	public HttpEntity<ApiErrorResponse> handleInvalidSessionException(InvalidSessionException e) {
 		logger.error("Invalid session for request " + e.getMessage(), e);
 
-		return new ResponseEntity<ApiErrorResponse>(createErrorResponse(e.getMessage(), ExceptionType.ADVISORY), HttpStatus.BAD_REQUEST);
-	}
-
-	@ExceptionHandler(NoBrandOrMarketFoundException.class)
-	public HttpEntity<ApiErrorResponse> handleNoBrandOrMarketFoundException(NoBrandOrMarketFoundException e) {
-		logger.warn("NoBrandOrMarketFoundException for request " + e.getMessage(), e);
 		return new ResponseEntity<ApiErrorResponse>(createErrorResponse(e.getMessage(), ExceptionType.ADVISORY), HttpStatus.BAD_REQUEST);
 	}
 
