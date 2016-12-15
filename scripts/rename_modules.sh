@@ -3,7 +3,7 @@
 CURRENT_PATH=`pwd`
 
 if [[ "${FROM_MODULE}" == "" ]]; then
-  echo 'Usage: FROM_MODULE="sbsk" TO_MODULE="tripsta.talos" scripts/rename_modules.sh'
+  echo -e 'Usage:\nFROM_MODULE="sbsk" TO_MODULE="tripsta.talos" scripts/rename_modules.sh'
   exit 1
 fi
 
@@ -21,6 +21,7 @@ echo -e "### CURRENT_PATH: ${CURRENT_PATH}"
 echo -e "\n\n### Replacing content in files from '${FROM_MODULE}' to '${TO_MODULE}' in '${CURRENT_PATH}'"
 egrep -lir "(${FROM_MODULE})" ${CURRENT_PATH} |\
   grep '.java\|.xml' |\
+  grep -v '/build/' |\
   while read TARGET; do
     echo "sed -i 's/${FROM_MODULE}/${TO_MODULE}/g' $TARGET"
   done
@@ -34,8 +35,9 @@ find ${CURRENT_PATH} -type d -print |\
   grep -v "build.gradle" |\
   while read FROM; do
     TO="${FROM/${FROM_PATH}/${TO_PATH}}"
-    echo "mkdir -p `dirname ${TO}`"
-    echo "mv ${FROM} ${TO}"
+    echo -e "mkdir -p `dirname ${TO}`"
+    echo -e "cp -RT ${FROM} ${TO}"
+    echo -e "rm -rf ${FROM}\n"
   done
 
 echo -e "\n\n *** CHECK AND RUN THE COMMANDS ABOVE AT YOUR OWN RISK"
@@ -45,3 +47,6 @@ cat "${CURRENT_PATH}/application/build.gradle" | grep "baseName"
 
 echo -e "\n\n ### Also, remember to change manually the display-name in 'application.yml', if needed.\nPath: ${CURRENT_PATH}/application/web/src/main/resources/config/application.yml\nCurrent value:"
 cat "${CURRENT_PATH}/application/web/src/main/resources/config/application.yml" | grep "display-name"
+echo \
+464 \
+76576
