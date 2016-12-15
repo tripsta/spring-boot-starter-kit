@@ -8,35 +8,35 @@ import java.util.List;
  */
 public interface ApiResponse extends ErrorContainer {
 
-	String getVersion();
+  String getVersion();
 
-	String getSid();
+  String getSid();
 
-	void setSid(String sid);
+  void setSid(String sid);
 
-	boolean hasErrors();
+  boolean hasErrors();
 
-	List<ApiError> getErrors();
+  List<ApiError> getErrors();
 
-	void addError(ApiError error);
+  void addError(ApiError error);
 
-	void addErrors(List<ApiError> errors);
+  void addErrors(List<ApiError> errors);
 
-	List<ApiWarning> getWarnings();
+  List<ApiWarning> getWarnings();
 
-	void addWarning(ApiWarning warning);
+  void addWarning(ApiWarning warning);
 
-	void addWarnings(List<ApiWarning> warnings);
+  void addWarnings(List<ApiWarning> warnings);
 
-	void insertData(String key, Object obj);
+  void insertData(String key, Object obj);
 
-	Object retrieveData(String key);
+  Object retrieveData(String key);
 
-	boolean isSuccess();
+  boolean isSuccess();
 
-	void setSuccessful();
+  void setSuccessful();
 
-	Object retrieveMetadata(String key);
+  Object retrieveMetadata(String key);
 
-	void insertMetadata(String key, Object obj);
+  void insertMetadata(String key, Object obj);
 }

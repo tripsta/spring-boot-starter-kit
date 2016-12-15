@@ -1,7 +1,7 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <include resource="config/logback/fluentd-properties.xml" />
+    <include resource="config/logback/fluentd-properties.xml"/>
     <property name="FLUENTD_LOG_LEVEL" value="INFO"/>
     <!--<include resource="config/logback/fluentd-appender.xml" />-->
 

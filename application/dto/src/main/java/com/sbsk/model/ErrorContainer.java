@@ -4,17 +4,17 @@ import java.util.List;
 
 public interface ErrorContainer {
 
-	void addError(ApiError error);
+  void addError(ApiError error);
 
-	void addErrors(List<ApiError> errors);
+  void addErrors(List<ApiError> errors);
 
-	List<ApiError> getErrors();
+  List<ApiError> getErrors();
 
-	boolean hasErrors();
+  boolean hasErrors();
 
-	List<ApiWarning> getWarnings();
+  List<ApiWarning> getWarnings();
 
-	void addWarning(ApiWarning warning);
+  void addWarning(ApiWarning warning);
 
-	void addWarnings(List<ApiWarning> warnings);
+  void addWarnings(List<ApiWarning> warnings);
 }

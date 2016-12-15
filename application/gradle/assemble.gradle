@@ -12,8 +12,8 @@ task createBuildInfoFile doLast {
 jar {
     dependsOn createBuildInfoFile
     baseName = project.jar.baseName
-  	from(buildDir) {
-		include 'build-info.properties'
-		into('/')
-	}
+    from(buildDir) {
+        include 'build-info.properties'
+        into('/')
+    }
 }

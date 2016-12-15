@@ -1,12 +1,12 @@
-springBoot  {
+springBoot {
     buildInfo {
         additionalProperties = [
-                'springBootVersion': "${springBootVersion}",
-                'artifactoryVersion': "${artifactoryVersion}",
+                'springBootVersion'         : "${springBootVersion}",
+                'artifactoryVersion'        : "${artifactoryVersion}",
                 'gradleGitPropertiesVersion': "${gradleGitPropertiesVersion}",
-                'fluentLoggerVersion': "${fluentLoggerVersion}",
-                'project.rootDir': "${project.rootDir}",
-                'project.buildDir': "${project.buildDir}"
+                'fluentLoggerVersion'       : "${fluentLoggerVersion}",
+                'project.rootDir'           : "${project.rootDir}",
+                'project.buildDir'          : "${project.buildDir}"
         ]
     }
 }

@@ -1,47 +1,47 @@
 jacoco {
-	toolVersion = "0.7.7.201606060606"
+    toolVersion = "0.7.7.201606060606"
 }
 
 task codeCoverage(type: JacocoReport, dependsOn: [jacocoTestReport], group: "verification") {
 
-	// Gather execution data from all subprojects
-	// (change this if you e.g. want to calculate unit test/integration test coverage separately)
-	executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+    // Gather execution data from all subprojects
+    // (change this if you e.g. want to calculate unit test/integration test coverage separately)
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
 
-	// Add all relevant sourcesets from the subprojects
-	subprojects.each {
-	   sourceSets it.sourceSets.main
-	}
+    // Add all relevant sourcesets from the subprojects
+    subprojects.each {
+        sourceSets it.sourceSets.main
+    }
 
-	reports {
-	  xml.enabled false
-	  html.enabled true
-	  html.destination "${buildDir}/reports/jacoco"
-	  csv.enabled false
-	}
+    reports {
+        xml.enabled false
+        html.enabled true
+        html.destination "${buildDir}/reports/jacoco"
+        csv.enabled false
+    }
 
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
             fileTree(
                     dir: it,
                     exclude: [
-                        'com/*/dto/**',
-                        'com/*/*/dto/**',
-                        'com/*/persistence/entity/**',
-                        'com/*/*/persistence/entity/**',
-                        'com/*/web/logging/appender/**',
-                        'com/*/*/web/logging/appender/**',
-						'com/*/model/ApiBaseResponse**',
-						'com/*/web/controllers/ExceptionHandlingAdvisor**',
-						'com/*/*/web/controllers/ExceptionHandlingAdvisor**'
-					]
+                            'com/*/dto/**',
+                            'com/*/*/dto/**',
+                            'com/*/persistence/entity/**',
+                            'com/*/*/persistence/entity/**',
+                            'com/*/web/logging/appender/**',
+                            'com/*/*/web/logging/appender/**',
+                            'com/*/model/ApiBaseResponse**',
+                            'com/*/web/controllers/ExceptionHandlingAdvisor**',
+                            'com/*/*/web/controllers/ExceptionHandlingAdvisor**'
+                    ]
             )
         })
     }
 
-	doLast {
-		println "Coverage report for all projects: file://${buildDir}/reports/jacoco/index.html"
-	}
+    doLast {
+        println "Coverage report for all projects: file://${buildDir}/reports/jacoco/index.html"
+    }
 }
 
 // always run the tests before generating the report

@@ -5,6 +5,6 @@ import com.sbsk.dto.UserResponseDto;
 
 public interface UserService {
 
-	public UserResponseDto createUser(UserRequestDto userRequestDto);
+  public UserResponseDto createUser(UserRequestDto userRequestDto);
 
 }

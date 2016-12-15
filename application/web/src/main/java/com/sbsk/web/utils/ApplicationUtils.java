@@ -7,15 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApplicationUtils {
 
-    @Autowired
-    Environment environment;
+  @Autowired
+  Environment environment;
 
-    public boolean isDevelopmentProfile() {
-        for (String profile : environment.getActiveProfiles()) {
-            if (profile.equals("development")) {
-                return true;
-            }
-        }
-        return false;
+  public boolean isDevelopmentProfile() {
+    for (String profile : environment.getActiveProfiles()) {
+      if (profile.equals("development")) {
+        return true;
+      }
     }
+    return false;
+  }
 }

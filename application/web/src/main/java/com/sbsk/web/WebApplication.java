@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(value = "com.sbsk.persistence.entity")
 public class WebApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WebApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(WebApplication.class, args);
+  }
 }
