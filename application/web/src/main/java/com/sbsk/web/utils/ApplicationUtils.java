@@ -1,11 +1,11 @@
-package com.sbsk.web.com.sbsk.utils;
+package com.sbsk.web.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SpringUtils {
+public class ApplicationUtils {
 
     @Autowired
     Environment environment;

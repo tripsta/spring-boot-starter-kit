@@ -1,6 +1,6 @@
 package com.sbsk.web.configuration;
 
-import com.sbsk.web.com.sbsk.utils.SpringUtils;
+import com.sbsk.web.utils.ApplicationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -19,7 +19,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     Environment environment;
 
     @Autowired
-    SpringUtils springUtils;
+    ApplicationUtils applicationUtils;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.headers().frameOptions().disable();
 
-        if (springUtils.isDevelopmentProfile()) {
+        if (applicationUtils.isDevelopmentProfile()) {
             http.authorizeRequests().antMatchers("**").permitAll();
         }
     }
