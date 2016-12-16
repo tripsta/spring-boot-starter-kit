@@ -1,8 +1,8 @@
 package com.sbsk.service.converters.user;
 
-import com.sbsk.dto.UserRequestDto;
-import com.sbsk.dto.UserResponseDto;
-import com.sbsk.persistence.entity.user.UserEntity;
+import com.sbsk.dtos.user.UserRequestDto;
+import com.sbsk.dtos.user.UserResponseDto;
+import com.sbsk.persistence.entities.user.UserEntity;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

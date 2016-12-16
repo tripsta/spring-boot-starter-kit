@@ -1,18 +1,20 @@
-package com.sbsk.dto;
+package com.sbsk.dtos.user;
 
-public class UserRequestDto {
+public class UserResponseDto {
 
   private String firstName;
   private String lastName;
   private Integer age;
+  private Boolean isAdult;
 
-  public UserRequestDto() {
+  public UserResponseDto() {
   }
 
-  public UserRequestDto(String firstName, String lastName, Integer age) {
+  public UserResponseDto(String firstName, String lastName, Integer age, Boolean isAdult) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
+    this.isAdult = isAdult;
   }
 
   public String getFirstName() {
@@ -39,9 +41,18 @@ public class UserRequestDto {
     this.age = age;
   }
 
+  public Boolean getIsAdult() {
+    return isAdult;
+  }
+
+  public void setIsAdult(Boolean isAdult) {
+    this.isAdult = isAdult;
+  }
+
   @Override
   public String toString() {
-    return "UserRequestDto [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + "]";
+    return "UserResponseDto [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", isAdult="
+        + isAdult + "]";
   }
 
 }

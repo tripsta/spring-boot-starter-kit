@@ -1,7 +1,7 @@
 package com.sbsk.service.services.user;
 
-import com.sbsk.dto.UserRequestDto;
-import com.sbsk.dto.UserResponseDto;
+import com.sbsk.dtos.user.UserRequestDto;
+import com.sbsk.dtos.user.UserResponseDto;
 
 public interface UserService {
 

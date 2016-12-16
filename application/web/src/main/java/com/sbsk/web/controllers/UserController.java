@@ -1,7 +1,7 @@
 package com.sbsk.web.controllers;
 
-import com.sbsk.dto.UserRequestDto;
-import com.sbsk.dto.UserResponseDto;
+import com.sbsk.dtos.user.UserRequestDto;
+import com.sbsk.dtos.user.UserResponseDto;
 import com.sbsk.service.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -1,4 +1,4 @@
-package com.sbsk.persistence.entity.user;
+package com.sbsk.persistence.entities.user;
 
 import javax.persistence.*;
 //import javax.validation.constraints.Size;
