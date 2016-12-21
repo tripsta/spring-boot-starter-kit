@@ -13,6 +13,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(UserConverter.class)
@@ -26,6 +27,8 @@ public class UserConverterTests {
 
   @Test
   public void convertUserRequestDtoToUserEntity_shouldMapProperly() {
+
+    when(userUtils.isAdult(69)).thenReturn(true);
 
     UserRequestDto userRequestDto = new UserRequestDto();
     userRequestDto.setFirstName("Foo");
@@ -48,6 +51,8 @@ public class UserConverterTests {
 
   @Test
   public void convertUserEntityUserResponseDtoTo_shouldMapProperly() {
+
+    when(userUtils.isAdult(69)).thenReturn(true);
 
     UserEntity userEntity = new UserEntity();
     userEntity.setFirstName("Foo");

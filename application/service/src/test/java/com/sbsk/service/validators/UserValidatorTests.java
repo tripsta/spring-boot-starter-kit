@@ -1,33 +1,40 @@
 package com.sbsk.service.validators;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(UserValidator.class)
 public class UserValidatorTests {
+
+  @InjectMocks
+  private UserValidator userValidator;
 
   @Test
   public void isNameValid_shouldReturnTrue_whenNameHasValidLength() {
-    // Arrange
-    String name = "Nikos";
 
-    // Act
-    Boolean result = UserValidator.isNameValid(name);
+    String name = "Foo";
 
-    // Assert
+    Boolean result = userValidator.isNameValid(name);
+
     assertTrue(result);
-
-    // Annihilate (not applicable in this case)
   }
 
   @Test
   public void isNameValid_shouldReturnFalse_whenNameHasLengthLessThanThreshold() {
-    String name1 = "";
-    String name2 = "Ni";
 
-    Boolean result1 = UserValidator.isNameValid(name1);
-    Boolean result2 = UserValidator.isNameValid(name2);
+    String name1 = "";
+    String name2 = "Fo";
+
+    Boolean result1 = userValidator.isNameValid(name1);
+    Boolean result2 = userValidator.isNameValid(name2);
 
     assertFalse(result1);
     assertFalse(result2);
@@ -39,9 +46,9 @@ public class UserValidatorTests {
     Integer age2 = 25;
     Integer age3 = 119;
 
-    Boolean result1 = UserValidator.isAgeValid(age1);
-    Boolean result2 = UserValidator.isAgeValid(age2);
-    Boolean result3 = UserValidator.isAgeValid(age3);
+    Boolean result1 = userValidator.isAgeValid(age1);
+    Boolean result2 = userValidator.isAgeValid(age2);
+    Boolean result3 = userValidator.isAgeValid(age3);
 
     assertTrue(result1);
     assertTrue(result2);
@@ -53,8 +60,8 @@ public class UserValidatorTests {
     Integer age1 = 0;
     Integer age2 = 120;
 
-    Boolean result1 = UserValidator.isAgeValid(age1);
-    Boolean result2 = UserValidator.isAgeValid(age2);
+    Boolean result1 = userValidator.isAgeValid(age1);
+    Boolean result2 = userValidator.isAgeValid(age2);
 
     assertFalse(result1);
     assertFalse(result2);
