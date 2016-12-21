@@ -4,22 +4,26 @@ import com.sbsk.dtos.user.UserRequestDto;
 import com.sbsk.dtos.user.UserResponseDto;
 import com.sbsk.persistence.entities.user.UserEntity;
 import com.sbsk.service.utils.UserUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserConverter {
 
-  public static UserEntity userRequestDtoToDao(UserRequestDto userRequestDto) {
+  @Autowired
+  private UserUtils userUtils;
+
+  public UserEntity convertUserRequestDtoToUserEntity(UserRequestDto userRequestDto) {
     return new UserEntity(
         userRequestDto.getFirstName(),
         userRequestDto.getLastName(),
         userRequestDto.getAge(),
         UserUtils.isAdult(userRequestDto.getAge()),
-        new Integer(12345)
+        12345
     );
   }
 
-  public static UserResponseDto userDaoToResponseDto(UserEntity userEntity) {
+  public UserResponseDto convertUserEntityToUserResponseDto(UserEntity userEntity) {
     return new UserResponseDto(
         userEntity.getFirstName(),
         userEntity.getLastName(),

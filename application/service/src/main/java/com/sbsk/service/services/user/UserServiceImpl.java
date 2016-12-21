@@ -14,11 +14,14 @@ public class UserServiceImpl implements UserService {
   @Autowired
   private UserRepository userRepository;
 
+  @Autowired
+  private UserConverter userConverter;
+
   @Override
   public UserResponseDto createUser(UserRequestDto userRequestDto) {
-    UserEntity userEntity = UserConverter.userRequestDtoToDao(userRequestDto);
+    UserEntity userEntity = userConverter.convertUserRequestDtoToUserEntity(userRequestDto);
     userRepository.save(userEntity);
-    return UserConverter.userDaoToResponseDto(userEntity);
+    return userConverter.convertUserEntityToUserResponseDto(userEntity);
   }
 
 }

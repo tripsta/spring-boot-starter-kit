@@ -3,30 +3,71 @@ package com.sbsk.service.converters.user;
 import com.sbsk.dtos.user.UserRequestDto;
 import com.sbsk.dtos.user.UserResponseDto;
 import com.sbsk.persistence.entities.user.UserEntity;
+import com.sbsk.service.utils.UserUtils;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(UserConverter.class)
 public class UserConverterTests {
 
+  @InjectMocks
+  private UserConverter userConverter;
+
+  @Mock
+  private UserUtils userUtils;
+
   @Test
-  public void userRequestDtoToDao_should_when() {
-    UserRequestDto userRequestDto = new UserRequestDto("Nikos", "Koukos", 17);
-    UserEntity expectedDao = new UserEntity("Nikos", "Koukos", 17, false, 0);
+  public void convertUserRequestDtoToUserEntity_shouldMapProperly() {
 
-    UserEntity actualDao = UserConverter.userRequestDtoToDao(userRequestDto);
+    UserRequestDto userRequestDto = new UserRequestDto();
+    userRequestDto.setFirstName("Foo");
+    userRequestDto.setLastName("Bar");
+    userRequestDto.setAge(69);
 
-    assertThat(actualDao).isEqualToIgnoringGivenFields(expectedDao, "dateCreated");
+    UserEntity expectedUserEntity = new UserEntity();
+    expectedUserEntity.setFirstName(userRequestDto.getFirstName());
+    expectedUserEntity.setLastName(userRequestDto.getLastName());
+    expectedUserEntity.setAge(userRequestDto.getAge());
+    expectedUserEntity.setIsAdult(userUtils.isAdult(userRequestDto.getAge()));
+
+    UserEntity actualUserEntity = userConverter.convertUserRequestDtoToUserEntity(userRequestDto);
+
+    assertEquals(actualUserEntity.getFirstName(), expectedUserEntity.getFirstName());
+    assertEquals(actualUserEntity.getLastName(), expectedUserEntity.getLastName());
+    assertEquals(actualUserEntity.getAge(), expectedUserEntity.getAge());
+    assertTrue(actualUserEntity.getIsAdult());
   }
 
   @Test
-  public void userDaoToResponseDto_should_when() {
-    UserEntity userEntity = new UserEntity("Nikos", "Koukos", 17, false, 0);
-    UserResponseDto expectedUserResponseDto = new UserResponseDto("Nikos", "Koukos", 17, false);
+  public void convertUserEntityUserResponseDtoTo_shouldMapProperly() {
 
-    UserResponseDto actualUserResponseDto = UserConverter.userDaoToResponseDto(userEntity);
+    UserEntity userEntity = new UserEntity();
+    userEntity.setFirstName("Foo");
+    userEntity.setLastName("Bar");
+    userEntity.setAge(69);
+    userEntity.setIsAdult(userUtils.isAdult(userEntity.getAge()));
 
-    assertThat(actualUserResponseDto).isEqualToComparingFieldByField(expectedUserResponseDto);
+    UserResponseDto expectedUserResponseDto = new UserResponseDto();
+    expectedUserResponseDto.setFirstName(userEntity.getFirstName());
+    expectedUserResponseDto.setLastName(userEntity.getLastName());
+    expectedUserResponseDto.setAge(userEntity.getAge());
+    expectedUserResponseDto.setIsAdult(userEntity.getIsAdult());
+
+    UserResponseDto actualUserResponseDto = userConverter.convertUserEntityToUserResponseDto(userEntity);
+
+    assertEquals(actualUserResponseDto.getFirstName(), expectedUserResponseDto.getFirstName());
+    assertEquals(actualUserResponseDto.getLastName(), expectedUserResponseDto.getLastName());
+    assertEquals(actualUserResponseDto.getAge(), expectedUserResponseDto.getAge());
+    assertTrue(actualUserResponseDto.getIsAdult());
+
   }
 
 }

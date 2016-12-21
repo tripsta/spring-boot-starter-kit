@@ -1,5 +1,8 @@
 package com.sbsk.service.validators;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserValidator {
 
   private static final Integer VALID_NAME_THRESHOLD = 2;
