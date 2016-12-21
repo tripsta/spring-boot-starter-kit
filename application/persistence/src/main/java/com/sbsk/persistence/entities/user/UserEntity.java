@@ -10,13 +10,8 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    //    @Column(unique = true, nullable = false)
     private String firstName;
-
-    //    @Size(max = 20)
     private String lastName;
-
     private Integer age;
     private Boolean isAdult;
     private Integer dateCreated;
@@ -25,11 +20,15 @@ public class UserEntity {
     }
 
     public UserEntity(String firstName, String lastName, Integer age, Boolean isAdult, Integer dateCreated) {
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.age = age;
-      this.isAdult = isAdult;
-      this.dateCreated = dateCreated;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.isAdult = isAdult;
+        this.dateCreated = dateCreated;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -74,8 +73,13 @@ public class UserEntity {
 
     @Override
     public String toString() {
-      return "UserEntity [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age
-          + ", isAdult=" + isAdult + ", dateCreated=" + dateCreated + "]";
+        return "UserEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", isAdult=" + isAdult +
+                ", dateCreated=" + dateCreated +
+                '}';
     }
-
 }

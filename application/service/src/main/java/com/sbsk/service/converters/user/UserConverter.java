@@ -14,22 +14,23 @@ public class UserConverter {
   private UserUtils userUtils;
 
   public UserEntity convertUserRequestDtoToUserEntity(UserRequestDto userRequestDto) {
-    return new UserEntity(
-        userRequestDto.getFirstName(),
-        userRequestDto.getLastName(),
-        userRequestDto.getAge(),
-        userUtils.isAdult(userRequestDto.getAge()),
-        12345
-    );
+
+    UserEntity userEntity = new UserEntity();
+    userEntity.setFirstName(userRequestDto.getFirstName());
+    userEntity.setLastName(userRequestDto.getLastName());
+    userEntity.setAge(userRequestDto.getAge());
+    userEntity.setIsAdult(userUtils.isAdult(userRequestDto.getAge()));
+    return userEntity;
   }
 
   public UserResponseDto convertUserEntityToUserResponseDto(UserEntity userEntity) {
-    return new UserResponseDto(
-        userEntity.getFirstName(),
-        userEntity.getLastName(),
-        userEntity.getAge(),
-        userEntity.getIsAdult()
-    );
+      UserResponseDto userResponseDto = new UserResponseDto();
+      userResponseDto.setId(userEntity.getId());
+      userResponseDto.setFirstName(userEntity.getFirstName());
+      userResponseDto.setLastName(userEntity.getLastName());
+      userResponseDto.setAge(userEntity.getAge());
+      userResponseDto.setIsAdult(userEntity.getIsAdult());
+    return userResponseDto;
   }
 
 }

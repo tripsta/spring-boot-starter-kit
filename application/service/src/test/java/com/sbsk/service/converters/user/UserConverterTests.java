@@ -61,6 +61,7 @@ public class UserConverterTests {
     userEntity.setIsAdult(userUtils.isAdult(userEntity.getAge()));
 
     UserResponseDto expectedUserResponseDto = new UserResponseDto();
+    expectedUserResponseDto.setId(userEntity.getId());
     expectedUserResponseDto.setFirstName(userEntity.getFirstName());
     expectedUserResponseDto.setLastName(userEntity.getLastName());
     expectedUserResponseDto.setAge(userEntity.getAge());
@@ -68,6 +69,7 @@ public class UserConverterTests {
 
     UserResponseDto actualUserResponseDto = userConverter.convertUserEntityToUserResponseDto(userEntity);
 
+    assertEquals(actualUserResponseDto.getId(), expectedUserResponseDto.getId());
     assertEquals(actualUserResponseDto.getFirstName(), expectedUserResponseDto.getFirstName());
     assertEquals(actualUserResponseDto.getLastName(), expectedUserResponseDto.getLastName());
     assertEquals(actualUserResponseDto.getAge(), expectedUserResponseDto.getAge());

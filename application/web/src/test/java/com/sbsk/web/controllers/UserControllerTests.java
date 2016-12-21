@@ -1,9 +1,13 @@
 package com.sbsk.web.controllers;
 
+import com.sbsk.persistence.entities.user.UserEntity;
+import com.sbsk.persistence.repositories.UserRepository;
+import com.sbsk.service.utils.UserUtils;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
@@ -29,10 +33,17 @@ public class UserControllerTests {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
+    @Autowired
+    private UserUtils userUtils;
+
+    @Autowired
+    private UserRepository userRepository;
+
     private MockMvc mockMvc;
 
     private final String URI = "/api/v1/user";
 
+    private static final String ID = "id";
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
     private static final String AGE = "age";
@@ -41,6 +52,25 @@ public class UserControllerTests {
     @Before
     public void setupMockMvc() {
       mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    }
+
+    @Test
+    public void getUser_shouldReturnSuccessfully_whenHappyPath() throws Exception {
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setFirstName("Foo");
+        userEntity.setLastName("Bar");
+        userEntity.setAge(69);
+        userEntity.setIsAdult(userUtils.isAdult(userEntity.getAge()));
+
+        userRepository.save(userEntity);
+
+        mockMvc.perform(get(URI + "/1"))
+                .andExpect(status().isOk()).andExpect(jsonPath("$." + ID).value(userEntity.getId()))
+                .andExpect(status().isOk()).andExpect(jsonPath("$." + FIRST_NAME).value(userEntity.getFirstName()))
+                .andExpect(status().isOk()).andExpect(jsonPath("$." + LAST_NAME).value(userEntity.getLastName()))
+                .andExpect(status().isOk()).andExpect(jsonPath("$." + AGE).value(userEntity.getAge()))
+                .andExpect(status().isOk()).andExpect(jsonPath("$." + IS_ADULT).value(userEntity.getIsAdult()));
     }
 
     @Test

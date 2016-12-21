@@ -14,24 +14,36 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //	/api/v1/user/get?name=pooo
-    @RequestMapping(value = "/get", method = {RequestMethod.GET})
-    @ResponseBody
-    public String getUser(
-  //			@PathVariable(value = "firstname", required = false) String firstName,
-        @RequestParam(value = "name", required = false, defaultValue = "dummyUser") String name
-    ) {
-      return "hey " + name;
-    }
+//    //	/api/v1/user/get?name=pooo
+//    @RequestMapping(value = "/get", method = {RequestMethod.GET})
+//    @ResponseBody
+//    public String getUser(
+//  //			@PathVariable(value = "firstname", required = false) String firstName,
+//        @RequestParam(value = "name", required = false, defaultValue = "dummyUser") String name
+//    ) {
+//      return "hey " + name;
+//    }
+//
+//    @RequestMapping(
+//        value = "/get-dto",
+//        method = {RequestMethod.GET},
+//        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+//    )
+//    @ResponseBody
+//    public UserResponseDto getDtoUser() {
+//      return new UserResponseDto("Nikos", "Koukos", 28, true);
+//    }
 
     @RequestMapping(
-        value = "/get-dto",
+        value = "/{id}",
         method = {RequestMethod.GET},
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     @ResponseBody
-    public UserResponseDto getDtoUser() {
-      return new UserResponseDto("Nikos", "Koukos", 28, true);
+    public UserResponseDto getUser(
+            @PathVariable Long id
+    ) {
+        return userService.getUser(id);
     }
 
     @RequestMapping(

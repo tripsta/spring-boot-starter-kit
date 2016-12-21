@@ -2,6 +2,7 @@ package com.sbsk.dtos.user;
 
 public class UserResponseDto {
 
+  private Long id;
   private String firstName;
   private String lastName;
   private Integer age;
@@ -10,11 +11,20 @@ public class UserResponseDto {
   public UserResponseDto() {
   }
 
-  public UserResponseDto(String firstName, String lastName, Integer age, Boolean isAdult) {
+  public UserResponseDto(Long id, String firstName, String lastName, Integer age, Boolean isAdult) {
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
     this.isAdult = isAdult;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getFirstName() {
@@ -51,8 +61,12 @@ public class UserResponseDto {
 
   @Override
   public String toString() {
-    return "UserResponseDto [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", isAdult="
-        + isAdult + "]";
+    return "UserResponseDto{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", age=" + age +
+            ", isAdult=" + isAdult +
+            '}';
   }
-
 }
