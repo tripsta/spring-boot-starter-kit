@@ -18,7 +18,7 @@ public class UserConverter {
         userRequestDto.getFirstName(),
         userRequestDto.getLastName(),
         userRequestDto.getAge(),
-        UserUtils.isAdult(userRequestDto.getAge()),
+        userUtils.isAdult(userRequestDto.getAge()),
         12345
     );
   }
