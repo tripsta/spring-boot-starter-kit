@@ -52,4 +52,17 @@ public class UserServiceImplTests {
       verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
   }
 
+  @Test
+  public void getUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
+
+      Long id = new Long(0);
+      when(userRepository.findOne(id)).thenReturn(userEntity);
+      when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
+
+      userServiceImpl.getUser(id);
+
+      verify(userRepository, times(1)).findOne(id);
+      verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
+  }
+
 }
