@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("${api.basepath}/user")
 public class UserController {
@@ -33,6 +35,15 @@ public class UserController {
 //    public UserResponseDto getDtoUser() {
 //      return new UserResponseDto("Nikos", "Koukos", 28, true);
 //    }
+
+    @RequestMapping(
+        method = {RequestMethod.GET},
+        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    @ResponseBody
+    public List<UserResponseDto> getAllUsers() {
+        return userService.getAllUsers();
+    }
 
     @RequestMapping(
         value = "/{id}",
