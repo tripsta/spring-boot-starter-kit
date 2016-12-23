@@ -35,9 +35,14 @@ public class UserServiceImplTests {
     @Mock
     private UserRepository userRepository;
 
-    private UserRequestDto userRequestDto = mock(UserRequestDto.class);
-    private UserEntity userEntity = mock(UserEntity.class);
-    private UserResponseDto userResponseDto = mock(UserResponseDto.class);
+    @Mock
+    private UserRequestDto userRequestDto;
+
+    @Mock
+    private UserEntity userEntity;
+
+    @Mock
+    private UserResponseDto userResponseDto;
 
   @Test
   public void createUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
