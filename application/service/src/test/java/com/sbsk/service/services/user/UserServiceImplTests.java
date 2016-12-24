@@ -87,4 +87,20 @@ public class UserServiceImplTests {
       verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
     }
 
+    @Test
+    public void updateUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
+
+
+        when(userEntity.getId()).thenReturn(new Long(1));
+        when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
+        when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
+
+        userServiceImpl.updateUser(new Long(1), userRequestDto);
+
+        verify(userConverter, times(1)).convertUserRequestDtoToUserEntity(userRequestDto);
+        verify(userEntity, times(1)).setId(anyLong());
+        verify(userRepository, times(1)).save(userEntity);
+        verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
+    }
+
 }

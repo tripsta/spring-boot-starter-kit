@@ -4,15 +4,11 @@ import com.sbsk.persistence.entities.user.UserEntity;
 import com.sbsk.persistence.repositories.UserRepository;
 import com.sbsk.service.utils.UserUtils;
 import org.json.JSONObject;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,9 +19,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
@@ -103,6 +101,26 @@ public class UserControllerTests {
                   .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                   .content(CREATE_REQUEST.toString()))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$." + FIRST_NAME).value(CREATE_REQUEST.get(FIRST_NAME)))
+                .andExpect(jsonPath("$." + LAST_NAME).value(CREATE_REQUEST.get(LAST_NAME)))
+                .andExpect(jsonPath("$." + AGE).value(CREATE_REQUEST.get(AGE)))
+                .andExpect(jsonPath("$." + IS_ADULT).value(true));
+    }
+
+    @Test
+    public void updateUser_shouldReturnSuccessfully_whenHappyPath() throws Exception {
+
+        JSONObject CREATE_REQUEST = new JSONObject()
+                .put(FIRST_NAME, "FooUpdated")
+                .put(LAST_NAME, "BarUpdated")
+                .put(AGE, 70);
+
+        mockMvc.perform(put(URI + "/" + userEntity.getId())
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .content(CREATE_REQUEST.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$." + ID).value(userEntity.getId()))
                 .andExpect(jsonPath("$." + FIRST_NAME).value(CREATE_REQUEST.get(FIRST_NAME)))
                 .andExpect(jsonPath("$." + LAST_NAME).value(CREATE_REQUEST.get(LAST_NAME)))
                 .andExpect(jsonPath("$." + AGE).value(CREATE_REQUEST.get(AGE)))
