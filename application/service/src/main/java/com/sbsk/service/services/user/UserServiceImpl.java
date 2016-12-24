@@ -40,4 +40,12 @@ public class UserServiceImpl implements UserService {
         return userConverter.convertUserEntityToUserResponseDto(userEntity);
     }
 
+    @Override
+    public UserResponseDto updateUser(Long id, UserRequestDto userRequestDto) {
+        UserEntity userEntity = userConverter.convertUserRequestDtoToUserEntity(userRequestDto);
+        userEntity.setId(id);
+        userRepository.save(userEntity);
+        return userConverter.convertUserEntityToUserResponseDto(userEntity);
+    }
+
 }

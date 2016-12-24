@@ -13,4 +13,6 @@ public interface UserService {
 
   public UserResponseDto createUser(UserRequestDto userRequestDto);
 
+  public UserResponseDto updateUser(Long id, UserRequestDto userRequestDto);
+
 }

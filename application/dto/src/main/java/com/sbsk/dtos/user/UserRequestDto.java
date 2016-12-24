@@ -41,7 +41,10 @@ public class UserRequestDto {
 
   @Override
   public String toString() {
-    return "UserRequestDto [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + "]";
+    return "UserRequestDto{" +
+            "firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", age=" + age +
+            '}';
   }
-
 }
