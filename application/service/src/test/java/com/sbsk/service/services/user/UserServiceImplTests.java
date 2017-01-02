@@ -90,7 +90,6 @@ public class UserServiceImplTests {
     @Test
     public void updateUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
 
-
         when(userEntity.getId()).thenReturn(new Long(1));
         when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
         when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
@@ -101,6 +100,16 @@ public class UserServiceImplTests {
         verify(userEntity, times(1)).setId(anyLong());
         verify(userRepository, times(1)).save(userEntity);
         verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
+    }
+
+    @Test
+    public void deleteUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
+
+        Long id = new Long(0);
+
+        userServiceImpl.deleteUser(id);
+
+        verify(userRepository, times(1)).delete(id);
     }
 
 }

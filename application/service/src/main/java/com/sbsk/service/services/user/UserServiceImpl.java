@@ -48,4 +48,9 @@ public class UserServiceImpl implements UserService {
         return userConverter.convertUserEntityToUserResponseDto(userEntity);
     }
 
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.delete(id);
+    }
+
 }

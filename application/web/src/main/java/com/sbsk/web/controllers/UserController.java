@@ -64,9 +64,18 @@ public class UserController {
         return userService.updateUser(id, userRequestDto);
     }
 
+    @RequestMapping(
+        value = "/{id}",
+        method = {RequestMethod.DELETE}
+    )
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
+
     @RequestMapping(value = "/throw-sample-exception", method = {RequestMethod.GET})
     public String throwSampleException() {
       if (true) { throw new RuntimeException("SampleException"); }
       return "Foo";
     }
+
 }

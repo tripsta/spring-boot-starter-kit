@@ -17,9 +17,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -125,6 +123,13 @@ public class UserControllerTests {
                 .andExpect(jsonPath("$." + LAST_NAME).value(CREATE_REQUEST.get(LAST_NAME)))
                 .andExpect(jsonPath("$." + AGE).value(CREATE_REQUEST.get(AGE)))
                 .andExpect(jsonPath("$." + IS_ADULT).value(true));
+    }
+
+    @Test
+    public void deleteUser_shouldReturnSuccessfully_whenHappyPath() throws Exception {
+
+        mockMvc.perform(delete(URI + "/" + userEntity.getId()))
+                .andExpect(status().isOk());
     }
 
 }
