@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -77,14 +79,36 @@ public class UserServiceImplTests {
     @Test
     public void createUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
 
-      when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
-      when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
+        when(userValidator.validateUser(userRequestDto)).thenReturn(true);
+        when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
+        when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
 
-      userServiceImpl.createUser(userRequestDto);
+        userServiceImpl.createUser(userRequestDto);
 
-      verify(userConverter, times(1)).convertUserRequestDtoToUserEntity(userRequestDto);
-      verify(userRepository, times(1)).save(userEntity);
-      verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
+        verify(userValidator, times(1)).validateUser(userRequestDto);
+        verify(userConverter, times(1)).convertUserRequestDtoToUserEntity(userRequestDto);
+        verify(userRepository, times(1)).save(userEntity);
+        verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
+    }
+
+    @Test
+    public void createUser_shouldFollowTheRightFlow_whenSomethingIsNotValidatedCorrectly() {
+
+        when(userValidator.validateUser(userRequestDto)).thenReturn(false);
+        when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
+        when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
+
+        try {
+            userServiceImpl.createUser(userRequestDto);
+            fail("Exception should have thrown");
+        } catch (RuntimeException e) {
+            assertEquals(e.getMessage(), "Invalid input parameters");
+        }
+
+        verify(userValidator, times(1)).validateUser(userRequestDto);
+        verify(userConverter, times(0)).convertUserRequestDtoToUserEntity(userRequestDto);
+        verify(userRepository, times(0)).save(userEntity);
+        verify(userConverter, times(0)).convertUserEntityToUserResponseDto(userEntity);
     }
 
     @Test

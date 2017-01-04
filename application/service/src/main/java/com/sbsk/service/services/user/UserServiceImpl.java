@@ -5,6 +5,7 @@ import com.sbsk.dtos.user.UserResponseDto;
 import com.sbsk.persistence.entities.user.UserEntity;
 import com.sbsk.persistence.repositories.UserRepository;
 import com.sbsk.service.converters.user.UserConverter;
+import com.sbsk.service.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +16,13 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserValidator userValidator;
 
     @Autowired
     private UserConverter userConverter;
+
+    @Autowired
+    private UserRepository userRepository;
 
 
     @Override
@@ -35,6 +39,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
+        if (!userValidator.validateUser(userRequestDto)) {
+            throw new RuntimeException("Invalid input parameters");
+        }
         UserEntity userEntity = userConverter.convertUserRequestDtoToUserEntity(userRequestDto);
         userRepository.save(userEntity);
         return userConverter.convertUserEntityToUserResponseDto(userEntity);

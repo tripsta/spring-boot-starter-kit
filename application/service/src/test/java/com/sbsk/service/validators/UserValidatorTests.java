@@ -1,5 +1,6 @@
 package com.sbsk.service.validators;
 
+import com.sbsk.dtos.user.UserRequestDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,6 +17,61 @@ public class UserValidatorTests {
 
   @InjectMocks
   private UserValidator userValidator;
+
+  @Test
+  public void validateUser_shouldReturnTrue_whenOnHappyPath() {
+
+    UserRequestDto userRequestDto = new UserRequestDto();
+    userRequestDto.setFirstName("Foo");
+    userRequestDto.setLastName("Bar");
+    userRequestDto.setAge(69);
+
+    Boolean result = userValidator.validateUser(userRequestDto);
+
+    assertTrue(result);
+
+  }
+
+  @Test
+  public void validateUser_shouldReturnFalse_whenFirstNameInvalid() {
+
+    UserRequestDto userRequestDto = new UserRequestDto();
+    userRequestDto.setFirstName("");
+    userRequestDto.setLastName("Bar");
+    userRequestDto.setAge(69);
+
+    Boolean result = userValidator.validateUser(userRequestDto);
+
+    assertFalse(result);
+
+  }
+
+  @Test
+  public void validateUser_shouldReturnFalse_whenLastNameIsInvalid() {
+
+    UserRequestDto userRequestDto = new UserRequestDto();
+    userRequestDto.setFirstName("Foo");
+    userRequestDto.setAge(69);
+
+    Boolean result = userValidator.validateUser(userRequestDto);
+
+    assertFalse(result);
+
+  }
+
+  @Test
+  public void validateUser_shouldReturnFalse_whenAgeIsInvalid() {
+
+    UserRequestDto userRequestDto = new UserRequestDto();
+    userRequestDto.setFirstName("Foo");
+    userRequestDto.setLastName("Bar");
+    userRequestDto.setAge(-69);
+
+    Boolean result = userValidator.validateUser(userRequestDto);
+
+    assertFalse(result);
+
+  }
 
   @Test
   public void isNameValid_shouldReturnTrue_whenNameHasValidLength() {

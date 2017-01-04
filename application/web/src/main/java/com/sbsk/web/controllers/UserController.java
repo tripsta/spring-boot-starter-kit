@@ -2,6 +2,7 @@ package com.sbsk.web.controllers;
 
 import com.sbsk.dtos.user.UserRequestDto;
 import com.sbsk.dtos.user.UserResponseDto;
+import com.sbsk.model.ApiBaseResponse;
 import com.sbsk.service.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("${api.basepath}/user")
 public class UserController {
+
+    private static final String USER = "user";
 
     @Autowired
     private UserService userService;
@@ -44,10 +47,13 @@ public class UserController {
 
     )
     @ResponseBody
-    public UserResponseDto createUser(
+    public ApiBaseResponse createUser(
         @RequestBody UserRequestDto userRequestDto
     ) {
-      return userService.createUser(userRequestDto);
+        ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
+        apiBaseResponse.insertData(USER, userService.createUser(userRequestDto));
+        apiBaseResponse.setSuccess(true);
+        return apiBaseResponse;
     }
 
     @RequestMapping(
