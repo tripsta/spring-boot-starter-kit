@@ -92,7 +92,7 @@ public class UserServiceImplTests {
     }
 
     @Test
-    public void createUser_shouldFollowTheRightFlow_whenSomethingIsNotValidatedCorrectly() {
+    public void createUser_shouldRaiseError_whenSomethingIsNotValidatedCorrectly() {
 
         when(userValidator.validateUser(userRequestDto)).thenReturn(false);
         when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
@@ -115,15 +115,39 @@ public class UserServiceImplTests {
     public void updateUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
 
         when(userEntity.getId()).thenReturn(new Long(1));
+        when(userValidator.validateUser(userRequestDto)).thenReturn(true);
         when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
         when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
 
         userServiceImpl.updateUser(new Long(1), userRequestDto);
 
+        verify(userValidator, times(1)).validateUser(userRequestDto);
         verify(userConverter, times(1)).convertUserRequestDtoToUserEntity(userRequestDto);
         verify(userEntity, times(1)).setId(anyLong());
         verify(userRepository, times(1)).save(userEntity);
         verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
+    }
+
+    @Test
+    public void updateUser_shouldRaiseError_whenSomethingIsNotValidatedCorrectly() {
+
+        when(userEntity.getId()).thenReturn(new Long(1));
+        when(userValidator.validateUser(userRequestDto)).thenReturn(false);
+        when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
+        when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
+
+        try {
+            userServiceImpl.updateUser(new Long(1), userRequestDto);
+            fail("Exception should have thrown");
+        } catch (RuntimeException e) {
+            assertEquals(e.getMessage(), "Invalid input parameters");
+        }
+
+        verify(userValidator, times(1)).validateUser(userRequestDto);
+        verify(userConverter, times(0)).convertUserRequestDtoToUserEntity(userRequestDto);
+        verify(userEntity, times(0)).setId(anyLong());
+        verify(userRepository, times(0)).save(userEntity);
+        verify(userConverter, times(0)).convertUserEntityToUserResponseDto(userEntity);
     }
 
     @Test

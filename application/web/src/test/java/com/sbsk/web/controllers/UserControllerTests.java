@@ -106,7 +106,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void createUser_shouldReturnError_whenDataInvalid() throws Exception {
+    public void createUser_shouldRaiseError_whenInvalidData() throws Exception {
 
         String errorString = "Invalid input parameters";
 
@@ -136,11 +136,29 @@ public class UserControllerTests {
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content(CREATE_REQUEST.toString()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$." + ID).value(userEntity.getId()))
-                .andExpect(jsonPath("$." + FIRST_NAME).value(CREATE_REQUEST.get(FIRST_NAME)))
-                .andExpect(jsonPath("$." + LAST_NAME).value(CREATE_REQUEST.get(LAST_NAME)))
-                .andExpect(jsonPath("$." + AGE).value(CREATE_REQUEST.get(AGE)))
-                .andExpect(jsonPath("$." + IS_ADULT).value(true));
+                .andExpect(jsonPath("$.data.user." + ID).value(userEntity.getId()))
+                .andExpect(jsonPath("$.data.user." + FIRST_NAME).value(CREATE_REQUEST.get(FIRST_NAME)))
+                .andExpect(jsonPath("$.data.user." + LAST_NAME).value(CREATE_REQUEST.get(LAST_NAME)))
+                .andExpect(jsonPath("$.data.user." + AGE).value(CREATE_REQUEST.get(AGE)))
+                .andExpect(jsonPath("$.data.user." + IS_ADULT).value(true));
+    }
+
+    @Test
+    public void updateUser_shouldRaiseError_whenInvalidData() throws Exception {
+
+        String errorString = "Invalid input parameters";
+
+        JSONObject CREATE_REQUEST = new JSONObject()
+                .put(FIRST_NAME, "")
+                .put(LAST_NAME, "")
+                .put(AGE, 0);
+
+        mockMvc.perform(put(URI + "/" + userEntity.getId())
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .content(CREATE_REQUEST.toString()))
+                .andExpect(status().is5xxServerError())
+                .andExpect(jsonPath("$.errors[0].message").value(errorString));
     }
 
     @Test

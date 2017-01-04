@@ -63,11 +63,14 @@ public class UserController {
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     @ResponseBody
-    public UserResponseDto updateUser(
+    public ApiBaseResponse updateUser(
             @PathVariable Long id,
             @RequestBody UserRequestDto userRequestDto
     ) {
-        return userService.updateUser(id, userRequestDto);
+        ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
+        apiBaseResponse.insertData(USER, userService.updateUser(id, userRequestDto));
+        apiBaseResponse.setSuccess(true);
+        return apiBaseResponse;
     }
 
     @RequestMapping(
@@ -76,12 +79,6 @@ public class UserController {
     )
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-    }
-
-    @RequestMapping(value = "/throw-sample-exception", method = {RequestMethod.GET})
-    public String throwSampleException() {
-      if (true) { throw new RuntimeException("SampleException"); }
-      return "Foo";
     }
 
 }

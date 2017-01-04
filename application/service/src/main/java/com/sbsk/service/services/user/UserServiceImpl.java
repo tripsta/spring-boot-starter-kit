@@ -49,6 +49,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto updateUser(Long id, UserRequestDto userRequestDto) {
+        if (!userValidator.validateUser(userRequestDto)) {
+            throw new RuntimeException("Invalid input parameters");
+        }
         UserEntity userEntity = userConverter.convertUserRequestDtoToUserEntity(userRequestDto);
         userEntity.setId(id);
         userRepository.save(userEntity);
