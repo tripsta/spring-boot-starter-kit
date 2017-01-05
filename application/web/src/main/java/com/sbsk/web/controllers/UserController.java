@@ -24,8 +24,11 @@ public class UserController {
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     @ResponseBody
-    public List<UserResponseDto> getAllUsers() {
-        return userService.getAllUsers();
+    public ApiBaseResponse getAllUsers() {
+        ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
+        apiBaseResponse.insertData(USER, userService.getAllUsers());
+        apiBaseResponse.setSuccess(true);
+        return apiBaseResponse;
     }
 
     @RequestMapping(

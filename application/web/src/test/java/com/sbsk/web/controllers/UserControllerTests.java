@@ -67,11 +67,11 @@ public class UserControllerTests {
 
         mockMvc.perform(get(URI))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0]." + ID).value(userEntity.getId()))
-                .andExpect(jsonPath("$[0]." + FIRST_NAME).value(userEntity.getFirstName()))
-                .andExpect(jsonPath("$[0]." + LAST_NAME).value(userEntity.getLastName()))
-                .andExpect(jsonPath("$[0]." + AGE).value(userEntity.getAge()))
-                .andExpect(jsonPath("$[0]." + IS_ADULT).value(userEntity.getIsAdult()));
+                .andExpect(jsonPath("$.data.user[0]." + ID).value(userEntity.getId()))
+                .andExpect(jsonPath("$.data.user[0]." + FIRST_NAME).value(userEntity.getFirstName()))
+                .andExpect(jsonPath("$.data.user[0]." + LAST_NAME).value(userEntity.getLastName()))
+                .andExpect(jsonPath("$.data.user[0]." + AGE).value(userEntity.getAge()))
+                .andExpect(jsonPath("$.data.user[0]." + IS_ADULT).value(userEntity.getIsAdult()));
     }
 
     @Test
