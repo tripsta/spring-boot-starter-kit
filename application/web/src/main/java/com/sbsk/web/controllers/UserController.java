@@ -37,10 +37,13 @@ public class UserController {
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     @ResponseBody
-    public UserResponseDto getUser(
+    public ApiBaseResponse getUser(
             @PathVariable Long id
     ) {
-        return userService.getUser(id);
+        ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
+        apiBaseResponse.insertData(USER, userService.getUser(id));
+        apiBaseResponse.setSuccess(true);
+        return apiBaseResponse;
     }
 
     @RequestMapping(

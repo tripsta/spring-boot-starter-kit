@@ -50,7 +50,7 @@ public class UserServiceImplTests {
     private UserResponseDto userResponseDto;
 
     @Test
-    public void getAllUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
+    public void getAllUser_shouldFollowTheRightFlow() {
 
         List<UserEntity> userEntities = new ArrayList<UserEntity>();
         List<UserResponseDto> userResponseDtos = new ArrayList<UserResponseDto>();
@@ -67,13 +67,35 @@ public class UserServiceImplTests {
     public void getUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
 
         Long id = new Long(0);
+        when(userValidator.userExists(id)).thenReturn(true);
         when(userRepository.findOne(id)).thenReturn(userEntity);
         when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
 
         userServiceImpl.getUser(id);
 
+        verify(userValidator, times(1)).userExists(id);
         verify(userRepository, times(1)).findOne(id);
         verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
+    }
+
+    @Test
+    public void getUser_shouldRaiseError_whenUserDoesNotExist() {
+
+        Long id = new Long(0);
+        when(userValidator.userExists(id)).thenReturn(false);
+        when(userRepository.findOne(id)).thenReturn(userEntity);
+        when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
+
+        try {
+            userServiceImpl.getUser(id);
+            fail("Exception should have thrown");
+        } catch (RuntimeException e) {
+            assertEquals(e.getMessage(), "User does not exist");
+        }
+
+        verify(userValidator, times(1)).userExists(id);
+        verify(userRepository, times(0)).findOne(id);
+        verify(userConverter, times(0)).convertUserEntityToUserResponseDto(userEntity);
     }
 
     @Test
@@ -115,12 +137,14 @@ public class UserServiceImplTests {
     public void updateUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
 
         when(userEntity.getId()).thenReturn(new Long(1));
+        when(userValidator.userExists(userEntity.getId())).thenReturn(true);
         when(userValidator.validateUser(userRequestDto)).thenReturn(true);
         when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
         when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
 
-        userServiceImpl.updateUser(new Long(1), userRequestDto);
+        userServiceImpl.updateUser(userEntity.getId(), userRequestDto);
 
+        verify(userValidator,times(1)).userExists(userEntity.getId());
         verify(userValidator, times(1)).validateUser(userRequestDto);
         verify(userConverter, times(1)).convertUserRequestDtoToUserEntity(userRequestDto);
         verify(userEntity, times(1)).setId(anyLong());
@@ -132,18 +156,44 @@ public class UserServiceImplTests {
     public void updateUser_shouldRaiseError_whenSomethingIsNotValidatedCorrectly() {
 
         when(userEntity.getId()).thenReturn(new Long(1));
+        when(userValidator.userExists(userEntity.getId())).thenReturn(true);
         when(userValidator.validateUser(userRequestDto)).thenReturn(false);
         when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
         when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
 
         try {
-            userServiceImpl.updateUser(new Long(1), userRequestDto);
+            userServiceImpl.updateUser(userEntity.getId(), userRequestDto);
             fail("Exception should have thrown");
         } catch (RuntimeException e) {
             assertEquals(e.getMessage(), "Invalid input parameters");
         }
 
+        verify(userValidator, times(1)).userExists(userEntity.getId());
         verify(userValidator, times(1)).validateUser(userRequestDto);
+        verify(userConverter, times(0)).convertUserRequestDtoToUserEntity(userRequestDto);
+        verify(userEntity, times(0)).setId(anyLong());
+        verify(userRepository, times(0)).save(userEntity);
+        verify(userConverter, times(0)).convertUserEntityToUserResponseDto(userEntity);
+    }
+
+    @Test
+    public void updateUser_shouldRaiseError_whenUserDoesNotExist() {
+
+        when(userEntity.getId()).thenReturn(new Long(1));
+        when(userValidator.userExists(userEntity.getId())).thenReturn(false);
+        when(userValidator.validateUser(userRequestDto)).thenReturn(true);
+        when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
+        when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
+
+        try {
+            userServiceImpl.updateUser(userEntity.getId(), userRequestDto);
+            fail("Exception should have thrown");
+        } catch (RuntimeException e) {
+            assertEquals(e.getMessage(), "User does not exist");
+        }
+
+        verify(userValidator, times(1)).userExists(userEntity.getId());
+        verify(userValidator, times(0)).validateUser(userRequestDto);
         verify(userConverter, times(0)).convertUserRequestDtoToUserEntity(userRequestDto);
         verify(userEntity, times(0)).setId(anyLong());
         verify(userRepository, times(0)).save(userEntity);

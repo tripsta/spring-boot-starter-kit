@@ -79,11 +79,23 @@ public class UserControllerTests {
 
         mockMvc.perform(get(URI + "/" + userEntity.getId()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$." + ID).value(userEntity.getId()))
-                .andExpect(jsonPath("$." + FIRST_NAME).value(userEntity.getFirstName()))
-                .andExpect(jsonPath("$." + LAST_NAME).value(userEntity.getLastName()))
-                .andExpect(jsonPath("$." + AGE).value(userEntity.getAge()))
-                .andExpect(jsonPath("$." + IS_ADULT).value(userEntity.getIsAdult()));
+                .andExpect(jsonPath("$.data.user." + ID).value(userEntity.getId()))
+                .andExpect(jsonPath("$.data.user." + FIRST_NAME).value(userEntity.getFirstName()))
+                .andExpect(jsonPath("$.data.user." + LAST_NAME).value(userEntity.getLastName()))
+                .andExpect(jsonPath("$.data.user." + AGE).value(userEntity.getAge()))
+                .andExpect(jsonPath("$.data.user." + IS_ADULT).value(userEntity.getIsAdult()));
+    }
+
+    @Test
+    public void getUser_shouldReturnWithError_whenUserDoesNotExist() throws Exception {
+
+        String errorString = "User does not exist";
+
+        Long nonExistingId = new Long(-1);
+
+        mockMvc.perform(get(URI + "/" + nonExistingId))
+                .andExpect(status().is5xxServerError())
+                .andExpect(jsonPath("$.errors[0].message").value(errorString));
     }
 
     @Test
@@ -106,7 +118,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void createUser_shouldRaiseError_whenInvalidData() throws Exception {
+    public void createUser_shouldReturnWithError_whenInvalidData() throws Exception {
 
         String errorString = "Invalid input parameters";
 
@@ -144,7 +156,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void updateUser_shouldRaiseError_whenInvalidData() throws Exception {
+    public void updateUser_shouldReturnWithError_whenInvalidData() throws Exception {
 
         String errorString = "Invalid input parameters";
 
@@ -157,6 +169,26 @@ public class UserControllerTests {
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content(CREATE_REQUEST.toString()))
+                .andExpect(status().is5xxServerError())
+                .andExpect(jsonPath("$.errors[0].message").value(errorString));
+    }
+
+    @Test
+    public void updateUser_shouldReturnWithError_whenUserDoesNotExist() throws Exception {
+
+        String errorString = "User does not exist";
+
+        Long nonExistingId = new Long(-1);
+
+        JSONObject CREATE_REQUEST = new JSONObject()
+                .put(FIRST_NAME, "FooUpdated")
+                .put(LAST_NAME, "BarUpdated")
+                .put(AGE, 70);
+
+        mockMvc.perform(put(URI + "/" + nonExistingId)
+                    .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                    .content(CREATE_REQUEST.toString()))
                 .andExpect(status().is5xxServerError())
                 .andExpect(jsonPath("$.errors[0].message").value(errorString));
     }

@@ -33,6 +33,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto getUser(Long id) {
+        if (!userValidator.userExists(id)) {
+            throw new RuntimeException("User does not exist");
+        }
         UserEntity userEntity = userRepository.findOne(id);
         return userConverter.convertUserEntityToUserResponseDto(userEntity);
     }
@@ -49,6 +52,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto updateUser(Long id, UserRequestDto userRequestDto) {
+        if (!userValidator.userExists(id)) {
+            throw new RuntimeException("User does not exist");
+        }
         if (!userValidator.validateUser(userRequestDto)) {
             throw new RuntimeException("Invalid input parameters");
         }
