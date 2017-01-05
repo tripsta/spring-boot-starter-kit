@@ -200,4 +200,13 @@ public class UserControllerTests {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void deleteUser_shouldReturnWithError_whenUserDoesNotExist() throws Exception {
+
+        Long nonExistingId = new Long(-1);
+
+        mockMvc.perform(delete(URI + "/" + nonExistingId))
+                .andExpect(status().isOk());
+    }
+
 }

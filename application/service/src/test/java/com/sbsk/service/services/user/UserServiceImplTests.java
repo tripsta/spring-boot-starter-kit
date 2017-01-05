@@ -205,9 +205,30 @@ public class UserServiceImplTests {
 
         Long id = new Long(0);
 
+        when(userValidator.userExists(id)).thenReturn(true);
+
         userServiceImpl.deleteUser(id);
 
+        verify(userValidator, times(1)).userExists(id);
         verify(userRepository, times(1)).delete(id);
+    }
+
+    @Test
+    public void deleteUser_shouldRaiseError_whenUserDoesNotExist() {
+
+        Long id = new Long(0);
+
+        when(userValidator.userExists(id)).thenReturn(false);
+
+        try {
+            userServiceImpl.deleteUser(id);
+            fail("Exception should have thrown");
+        } catch (RuntimeException e) {
+            assertEquals(e.getMessage(), "User does not exist");
+        }
+
+        verify(userValidator, times(1)).userExists(id);
+        verify(userRepository, times(0)).delete(id);
     }
 
 }

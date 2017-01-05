@@ -83,8 +83,12 @@ public class UserController {
         value = "/{id}",
         method = {RequestMethod.DELETE}
     )
-    public void deleteUser(@PathVariable Long id) {
+    @ResponseBody
+    public ApiBaseResponse deleteUser(@PathVariable Long id) {
+        ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
         userService.deleteUser(id);
+        apiBaseResponse.setSuccess(true);
+        return apiBaseResponse;
     }
 
 }

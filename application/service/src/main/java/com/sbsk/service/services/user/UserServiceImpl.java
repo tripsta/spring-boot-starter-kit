@@ -66,6 +66,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
+        if (!userValidator.userExists(id)) {
+            throw new RuntimeException("User does not exist");
+        }
         userRepository.delete(id);
     }
 
