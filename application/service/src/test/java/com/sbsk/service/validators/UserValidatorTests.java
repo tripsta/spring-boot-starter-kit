@@ -1,15 +1,19 @@
 package com.sbsk.service.validators;
 
 import com.sbsk.dtos.user.UserRequestDto;
+import com.sbsk.persistence.entities.user.UserEntity;
+import com.sbsk.persistence.repositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(UserValidator.class)
@@ -17,6 +21,9 @@ public class UserValidatorTests {
 
   @InjectMocks
   private UserValidator userValidator;
+
+  @Mock
+  private UserRepository userRepository;
 
   @Test
   public void validateUser_shouldReturnTrue_whenOnHappyPath() {
@@ -98,6 +105,7 @@ public class UserValidatorTests {
 
   @Test
   public void isAgeValid_shouldReturnTrue_whenAgeIsWithinBounds() {
+
     Integer age1 = 1;
     Integer age2 = 25;
     Integer age3 = 119;
@@ -113,6 +121,7 @@ public class UserValidatorTests {
 
   @Test
   public void isAgeValid_shouldReturnFalse_whenAgeIsOutOfBounds() {
+
     Integer age1 = 0;
     Integer age2 = 120;
 
@@ -121,6 +130,30 @@ public class UserValidatorTests {
 
     assertFalse(result1);
     assertFalse(result2);
+  }
+
+  @Test
+  public void userExists_shouldReturnTrue_whenUserReallyExists() {
+
+    Long id = new Long(0);
+    when(userRepository.exists(id)).thenReturn(true);
+
+    Boolean result = userValidator.userExists(id);
+
+    assertTrue(result);
+
+  }
+
+  @Test
+  public void userExists_shouldReturnFalse_whenUserDoesNotExist() {
+
+    Long id = new Long(0);
+    when(userRepository.exists(id)).thenReturn(false);
+
+    Boolean result = userValidator.userExists(id);
+
+    assertFalse(result);
+
   }
 
 }
