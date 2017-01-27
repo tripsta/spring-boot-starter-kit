@@ -206,7 +206,7 @@ public class UserControllerTests {
         Long nonExistingId = new Long(-1);
 
         mockMvc.perform(delete(URI + "/" + nonExistingId))
-                .andExpect(status().isOk());
+                .andExpect(status().is5xxServerError());
     }
 
 }
