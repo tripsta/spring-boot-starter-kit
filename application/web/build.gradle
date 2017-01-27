@@ -1,13 +1,13 @@
 apply plugin: 'org.springframework.boot'
 
 jar {
-    baseName = 'web'
+    baseName = 'sbsk-web'
     version = '0.0.1-SNAPSHOT'
 }
 
 dependencies {
-    compile project(':dto')
-    compile project(':service')
+    compile project(':sbsk-dto')
+    compile project(':sbsk-service')
     compile('org.springframework.boot:spring-boot-devtools')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-actuator')

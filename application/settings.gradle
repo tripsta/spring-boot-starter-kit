@@ -1,7 +1,7 @@
-include 'web'
+include 'sbsk-web'
 
-include 'dto'
+include 'sbsk-dto'
 
-include 'service'
+include 'sbsk-service'
 
-include 'persistence'
+include 'sbsk-persistence'

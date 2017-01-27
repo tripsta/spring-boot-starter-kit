@@ -1,7 +1,7 @@
 apply plugin: "com.gorylenko.gradle-git-properties"
 gitProperties {
     gitRepositoryRoot = new File("${project.rootDir}/..")
-    gitPropertiesDir = new File("${project.rootDir}/web/src/main/resources")
+    gitPropertiesDir = new File("${project.rootDir}/sbsk-web/src/main/resources")
     dateFormat = "yyyy-MM-dd'T'HH:mmZ"
     dateFormatTimeZone = "EET"
 }

@@ -4,13 +4,13 @@ bootRepackage.enabled = false
 bootRun.enabled = false
 
 jar {
-    baseName = 'service'
+    baseName = 'sbsk-service'
     version = '0.0.1-SNAPSHOT'
 }
 
 dependencies {
-    compile project(':dto')
-    compile project(':persistence')
+    compile project(':sbsk-dto')
+    compile project(':sbsk-persistence')
     compile('org.springframework.boot:spring-boot')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.mockito:mockito-core')

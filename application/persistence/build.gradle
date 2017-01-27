@@ -4,7 +4,7 @@ bootRepackage.enabled = false
 bootRun.enabled = false
 
 jar {
-    baseName = 'persistence'
+    baseName = 'sbsk-persistence'
     version = '0.0.1-SNAPSHOT'
 }
 

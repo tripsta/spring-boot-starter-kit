@@ -1,9 +1,9 @@
 buildscript {
     ext {
-        springBootVersion = "1.4.2.RELEASE"
         artifactoryVersion = "4.4.0"
-        gradleGitPropertiesVersion = "1.4.17"
         fluentLoggerVersion = "0.3.2"
+        gradleGitPropertiesVersion = "1.4.17"
+        springBootVersion = "1.4.3.RELEASE"
     }
     repositories {
         mavenCentral()
@@ -41,7 +41,8 @@ def buildConfig() {
 
 configure(subprojects) {
     apply from: "${rootDir}/gradle/versioning.gradle"
-    apply from: "${rootDir}/gradle/assemble.gradle"
+//    apply from: "${rootDir}/gradle/assemble.gradle"
+    apply from: "${rootDir}/gradle/test-summary.gradle"
 
     buildConfig()
     apply from: "${rootDir}/gradle/artifactory.gradle"
@@ -53,7 +54,7 @@ jar {
 }
 
 dependencies {
-    compile project(":web")
+    compile project(":sbsk-web")
 }
 
 apply from: "${rootDir}/gradle/jacoco-multi-project.gradle"
