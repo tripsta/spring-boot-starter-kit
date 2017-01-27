@@ -1,0 +1,14 @@
+apply plugin: "maven-publish"
+
+jar {
+    baseName = 'common-exceptions'
+    version = '0.0.1-SNAPSHOT'
+}
+
+dependencies {
+
+    compile(
+            [group: 'junit', name: 'junit', version: "${jUnitVersion}"]
+    )
+
+}

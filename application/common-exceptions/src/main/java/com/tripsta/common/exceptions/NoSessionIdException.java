@@ -1,4 +1,4 @@
-package com.sbsk.model.exception;
+package com.tripsta.common.exceptions;
 
 public class NoSessionIdException extends GenericException {
 

@@ -1,59 +1,45 @@
-package com.sbsk.model.exception;
+package com.tripsta.common.exceptions;
 
-import com.sbsk.model.ApiError;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.tripsta.common.exceptions.NoSessionIdException;
 
 import static org.junit.Assert.assertEquals;
 
-public class GenericExceptionTest {
+public class ResourceNotFoundExceptionTest {
 
   @Test
   public void testConstructors() throws Exception {
 
-    GenericException ge = new GenericException();
+    NoSessionIdException ge = new NoSessionIdException();
     assertEquals(null, ge.getMessage());
     assertEquals(null, ge.getCause());
     assertEquals(0, ge.getSuppressed().length);
     ge.setStackTrace(new StackTraceElement[] {new StackTraceElement("Object", "toString", null, 0)});
 
-    ge = new GenericException("message", new RuntimeException("inner"), true, true);
+    ge = new NoSessionIdException("message", new RuntimeException("inner"), true, true);
     assertEquals("message", ge.getMessage());
     assertEquals("inner", ge.getCause().getMessage());
     assertEquals(0, ge.getSuppressed().length);
     ge.setStackTrace(new StackTraceElement[] {new StackTraceElement("Object", "toString", null, 0)});
 
-    ge = new GenericException("message", new RuntimeException("inner"));
+    ge = new NoSessionIdException("message", new RuntimeException("inner"));
     assertEquals("message", ge.getMessage());
     assertEquals("inner", ge.getCause().getMessage());
     assertEquals(0, ge.getSuppressed().length);
     ge.setStackTrace(new StackTraceElement[] {new StackTraceElement("Object", "toString", null, 0)});
 
-    ge = new GenericException("message");
+    ge = new NoSessionIdException("message");
     assertEquals("message", ge.getMessage());
     assertEquals(null, ge.getCause());
     assertEquals(0, ge.getSuppressed().length);
     ge.setStackTrace(new StackTraceElement[] {new StackTraceElement("Object", "toString", null, 0)});
 
-    ge = new GenericException(new RuntimeException("inner"));
+    ge = new NoSessionIdException(new RuntimeException("inner"));
     assertEquals("java.lang.RuntimeException: inner", ge.getMessage());
     assertEquals("inner", ge.getCause().getMessage());
     assertEquals(0, ge.getSuppressed().length);
     ge.setStackTrace(new StackTraceElement[] {new StackTraceElement("Object", "toString", null, 0)});
   }
-
-  @Test
-  public void testPrepareErrorMessages() throws Exception {
-    @SuppressWarnings("serial")
-    List<ApiError> errors = new ArrayList<ApiError>() {{
-      add(new ApiError("test1"));
-      add(new ApiError("test2"));
-    }};
-
-    assertEquals("test1\ntest2", GenericException.prepareErrorMessages(errors));
-  }
-
 
 }

@@ -1,6 +1,6 @@
-package com.sbsk.model.exception;
+package com.tripsta.common.exceptions;
 
-import static com.sbsk.model.exception.ExceptionMessages.INVALID_SESSION;
+import static com.tripsta.common.exceptions.ExceptionMessages.INVALID_SESSION;
 
 public class InvalidSessionException extends GenericException {
 

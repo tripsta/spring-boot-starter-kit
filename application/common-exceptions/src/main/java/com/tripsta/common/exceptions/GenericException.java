@@ -1,10 +1,4 @@
-package com.sbsk.model.exception;
-
-import com.sbsk.model.ApiError;
-import org.apache.commons.collections4.CollectionUtils;
-
-import java.util.Iterator;
-import java.util.List;
+package com.tripsta.common.exceptions;
 
 public class GenericException extends Exception {
 
@@ -29,21 +23,6 @@ public class GenericException extends Exception {
 
   public GenericException(Throwable cause) {
     super(cause);
-  }
-
-
-  protected static String prepareErrorMessages(List<ApiError> errors) {
-    StringBuffer buffer = new StringBuffer();
-
-    if (!CollectionUtils.isEmpty(errors)) {
-      for (Iterator<ApiError> it = errors.iterator(); it.hasNext(); ) {
-        ApiError addOnsApiError = it.next();
-        buffer.append(addOnsApiError.getMessage());
-        if (it.hasNext()) { buffer.append("\n"); }
-      }
-    }
-
-    return buffer.toString();
   }
 
 }

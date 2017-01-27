@@ -1,14 +1,15 @@
 package com.sbsk.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sbsk.model.exception.ExceptionType;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.lang.reflect.Field;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tripsta.common.exceptions.ExceptionType;
 
 public class ApiErrorTest {
 
@@ -41,7 +42,7 @@ public class ApiErrorTest {
   public void testExceptionType() throws Exception {
     assertEquals(null, apiError.getType());
 
-    apiError.setType(ExceptionType.ADVISORY);
+    apiError.setType(com.tripsta.common.exceptions.ExceptionType.ADVISORY);
 
     assertEquals(ExceptionType.ADVISORY, apiError.getType());
   }

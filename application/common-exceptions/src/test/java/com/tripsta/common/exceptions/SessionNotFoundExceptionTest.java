@@ -1,6 +1,9 @@
-package com.sbsk.model.exception;
+package com.tripsta.common.exceptions;
 
 import org.junit.Test;
+
+import com.tripsta.common.exceptions.ExceptionMessages;
+import com.tripsta.common.exceptions.SessionNotFoundException;
 
 import static org.junit.Assert.assertEquals;
 

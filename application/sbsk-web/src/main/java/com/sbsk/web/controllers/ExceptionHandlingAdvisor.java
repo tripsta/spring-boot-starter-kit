@@ -1,11 +1,18 @@
 package com.sbsk.web.controllers;
 
-import com.sbsk.model.ApiError;
-import com.sbsk.model.ApiErrorResponse;
-import com.sbsk.model.exception.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.RollbackException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -15,10 +22,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.HandlerMapping;
 
-import javax.persistence.RollbackException;
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import com.sbsk.model.ApiError;
+import com.sbsk.model.ApiErrorResponse;
+import com.tripsta.common.exceptions.ExceptionType;
+import com.tripsta.common.exceptions.GenericException;
+import com.tripsta.common.exceptions.InvalidSessionException;
+import com.tripsta.common.exceptions.NoSessionIdException;
+import com.tripsta.common.exceptions.ResourceNotFoundException;
+import com.tripsta.common.exceptions.SessionNotFoundException;
 
 @ControllerAdvice
 public class ExceptionHandlingAdvisor {

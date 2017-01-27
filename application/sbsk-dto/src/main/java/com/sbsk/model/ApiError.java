@@ -2,7 +2,7 @@ package com.sbsk.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sbsk.model.exception.ExceptionType;
+import com.tripsta.common.exceptions.ExceptionType;
 
 public class ApiError {
 

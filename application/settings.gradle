@@ -5,3 +5,5 @@ include 'sbsk-dto'
 include 'sbsk-service'
 
 include 'sbsk-persistence'
+
+include 'common-exceptions'

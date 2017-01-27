@@ -1,6 +1,6 @@
-package com.sbsk.model.exception;
+package com.tripsta.common.exceptions;
 
-import static com.sbsk.model.exception.ExceptionMessages.SESSION_NOT_FOUND;
+import static com.tripsta.common.exceptions.ExceptionMessages.SESSION_NOT_FOUND;
 
 public class SessionNotFoundException extends GenericException {
 

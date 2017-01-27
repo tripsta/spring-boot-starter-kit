@@ -1,6 +1,8 @@
-package com.sbsk.model.exception;
+package com.tripsta.common.exceptions;
 
 import org.junit.Test;
+
+import com.tripsta.common.exceptions.NoSessionIdException;
 
 import static org.junit.Assert.assertEquals;
 
