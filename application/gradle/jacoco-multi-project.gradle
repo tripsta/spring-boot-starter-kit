@@ -40,7 +40,14 @@ task codeCoverage(type: JacocoReport, dependsOn: [jacocoTestReport], group: "ver
     }
 
     doLast {
-        println "Coverage report for all projects: file://${buildDir}/reports/jacoco/index.html"
+        def outputLine1 = "Code coverage results:"
+        def outputLine2 = "file://${buildDir}/reports/jacoco/index.html"
+        def startItem = '|  ', endItem = '  |'
+        def repeatLength = startItem.length() + outputLine2.length() + endItem.length()
+        println(('-' * repeatLength) + '\n' +
+                startItem + outputLine1 + endItem + '\n' +
+                startItem + outputLine2 + endItem + '\n' +
+                ('-' * repeatLength))
     }
 }
 
