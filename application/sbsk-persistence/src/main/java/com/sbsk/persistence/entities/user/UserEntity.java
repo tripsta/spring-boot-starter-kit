@@ -1,7 +1,6 @@
 package com.sbsk.persistence.entities.user;
 
 import javax.persistence.*;
-//import javax.validation.constraints.Size;
 
 @Entity(name = "user")
 @Table(name = "user", indexes = {@Index(columnList = "lastName", unique = false)})

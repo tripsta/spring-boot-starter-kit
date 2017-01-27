@@ -1,18 +1,16 @@
 package com.sbsk.web.controllers;
 
 import com.sbsk.dtos.user.UserRequestDto;
-import com.sbsk.dtos.user.UserResponseDto;
 import com.sbsk.model.ApiBaseResponse;
 import com.sbsk.service.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("${api.basepath}/user")
 public class UserController {
+
 
     private static final String USER = "user";
 

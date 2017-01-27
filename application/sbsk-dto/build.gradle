@@ -5,19 +5,19 @@ jar {
 
 dependencies {
     compile(
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.5'],
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.5'],
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.5'],
-            [group: 'org.apache.commons', name: 'commons-collections4', version: '4.0']
+            [group: 'ch.qos.logback', name: 'logback-classic', version: "${logbackClassicVersion}"],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "${jacksonVersion}"],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "${jacksonVersion}"],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jacksonVersion}"],
+            [group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'],
+            [group: 'org.powermock', name: 'powermock-api-mockito', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-api-easymock', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-core', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-module-testng', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-module-junit4', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-module-junit4-rule', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-reflect', version: "${powermockVersion}"]
     )
 
     testCompile('org.mockito:mockito-core')
-
-    compile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.6.6'
-    compile group: 'org.powermock', name: 'powermock-api-mockito', version: '1.6.6'
-    compile group: 'org.powermock', name: 'powermock-api-easymock', version: '1.6.6'
-    compile group: 'org.powermock', name: 'powermock-core', version: '1.6.6'
-    compile group: 'org.powermock', name: 'powermock-module-testng', version: '1.6.6'
-    compile group: 'org.powermock', name: 'powermock-reflect', version: '1.6.6'
-    compile group: 'org.powermock', name: 'powermock-module-junit4-rule', version: '1.6.6'
 }

@@ -8,14 +8,19 @@ jar {
 dependencies {
     compile project(':sbsk-dto')
     compile project(':sbsk-service')
-    compile('org.springframework.boot:spring-boot-devtools')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-security')
-    compile("org.fluentd:fluent-logger:$fluentLoggerVersion")
 
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile("org.springframework.security:spring-security-test")
+    compile(
+            [group: 'org.springframework.boot', name: 'spring-boot-devtools', version: "${springBootVersion}"],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${springBootVersion}"],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "${springBootVersion}"],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "${springBootVersion}"],
+            [group: 'org.fluentd', name: 'fluent-logger', version: "${fluentLoggerVersion}"]
+    )
+
+    testCompile(
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"],
+            [group: 'org.springframework.security', name: 'spring-security-test', version: "${springSecurityVersion}"]
+    )
 
 }
 

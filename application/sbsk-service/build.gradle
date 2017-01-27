@@ -11,16 +11,20 @@ jar {
 dependencies {
     compile project(':sbsk-dto')
     compile project(':sbsk-persistence')
-    compile('org.springframework.boot:spring-boot')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('org.mockito:mockito-core')
 
+    compile (
+            [group: 'org.powermock', name: 'powermock-api-mockito', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-api-easymock', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-core', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-module-junit4', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-module-junit4-rule', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-module-testng', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-reflect', version: "${powermockVersion}"],
+            [group: 'org.springframework.boot', name: 'spring-boot', version: "${springBootVersion}"]
+    )
 
-    compile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.6.6'
-    compile group: 'org.powermock', name: 'powermock-api-mockito', version: '1.6.6'
-    compile group: 'org.powermock', name: 'powermock-api-easymock', version: '1.6.6'
-    compile group: 'org.powermock', name: 'powermock-core', version: '1.6.6'
-    compile group: 'org.powermock', name: 'powermock-module-testng', version: '1.6.6'
-    compile group: 'org.powermock', name: 'powermock-reflect', version: '1.6.6'
-    compile group: 'org.powermock', name: 'powermock-module-junit4-rule', version: '1.6.6'
+    testCompile(
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"],
+            [group: 'org.mockito', name: 'mockito-core']
+    )
 }

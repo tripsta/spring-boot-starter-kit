@@ -2,9 +2,14 @@ springBoot {
     buildInfo {
         additionalProperties = [
                 'artifactoryVersion'        : "${artifactoryVersion}",
-                'gradleGitPropertiesVersion': "${gradleGitPropertiesVersion}",
                 'fluentLoggerVersion'       : "${fluentLoggerVersion}",
+                'gradleGitPropertiesVersion': "${gradleGitPropertiesVersion}",
+                'jacksonVersion'            : "${jacksonVersion}",
+                'logbackClassicVersion'     : "${logbackClassicVersion}",
+                'powermockVersion'          : "${powermockVersion}",
                 'springBootVersion'         : "${springBootVersion}",
+                'springFrameworkVersion'    : "${springFrameworkVersion}",
+                'springSecurityVersion'     : "${springSecurityVersion}",
 
                 'project.rootDir'           : "${project.rootDir}",
                 'project.buildDir'          : "${project.buildDir}"

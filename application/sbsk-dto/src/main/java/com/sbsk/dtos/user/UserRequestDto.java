@@ -7,7 +7,7 @@ public class UserRequestDto {
   private Integer age;
 
   public UserRequestDto() {
-  }
+      }
 
   public UserRequestDto(String firstName, String lastName, Integer age) {
     this.firstName = firstName;

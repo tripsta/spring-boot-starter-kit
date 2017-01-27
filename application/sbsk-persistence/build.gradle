@@ -9,7 +9,10 @@ jar {
 }
 
 dependencies {
-    compile('com.h2database:h2')
-    compile("org.springframework:spring-jdbc")
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile(
+            [group: 'com.h2database', name: 'h2'],
+            [group: 'org.springframework', name: 'spring-jdbc', version: "${springFrameworkVersion}"],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "${springBootVersion}"]
+
+    )
 }

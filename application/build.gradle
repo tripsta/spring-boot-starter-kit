@@ -3,7 +3,12 @@ buildscript {
         artifactoryVersion = "4.4.0"
         fluentLoggerVersion = "0.3.2"
         gradleGitPropertiesVersion = "1.4.17"
+        jacksonVersion = "2.8.5"
+        logbackClassicVersion = "1.1.9"
+        powermockVersion = "1.6.6"
         springBootVersion = "1.4.3.RELEASE"
+        springFrameworkVersion = "4.3.5.RELEASE"
+        springSecurityVersion = "4.2.1.RELEASE"
     }
     repositories {
         mavenCentral()
