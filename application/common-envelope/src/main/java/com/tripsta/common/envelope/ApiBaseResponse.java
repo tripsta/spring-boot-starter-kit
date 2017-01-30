@@ -1,4 +1,4 @@
-package com.sbsk.model;
+package com.tripsta.common.envelope;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sbsk.model.ApiErrorResponse;
+import com.tripsta.common.envelope.ApiErrorResponse;
 import com.tripsta.common.exceptions.ExceptionType;
 
 @RestController

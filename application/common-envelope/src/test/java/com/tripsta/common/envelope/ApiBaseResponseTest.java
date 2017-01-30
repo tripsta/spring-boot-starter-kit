@@ -1,4 +1,4 @@
-package com.sbsk.model;
+package com.tripsta.common.envelope;
 
 import org.junit.Before;
 import org.junit.Test;

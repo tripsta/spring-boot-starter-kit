@@ -6,4 +6,6 @@ include 'sbsk-service'
 
 include 'sbsk-persistence'
 
+include 'common-envelope'
+
 include 'common-exceptions'

@@ -1,4 +1,4 @@
-package com.sbsk.model;
+package com.tripsta.common.envelope;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
