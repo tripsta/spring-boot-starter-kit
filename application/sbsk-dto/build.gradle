@@ -4,4 +4,23 @@ jar {
 }
 
 dependencies {
+	compile project(':common-exceptions')
+
+    compile(
+            [group: 'ch.qos.logback', name: 'logback-classic', version: "${logbackClassicVersion}"],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "${jacksonVersion}"],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "${jacksonVersion}"],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jacksonVersion}"],
+            [group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'],
+            [group: 'org.powermock', name: 'powermock-api-mockito', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-api-easymock', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-core', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-module-testng', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-module-junit4', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-module-junit4-rule', version: "${powermockVersion}"],
+            [group: 'org.powermock', name: 'powermock-reflect', version: "${powermockVersion}"]
+            
+    )
+
+    testCompile('org.mockito:mockito-core')
 }

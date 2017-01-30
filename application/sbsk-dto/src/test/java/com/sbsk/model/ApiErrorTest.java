@@ -1,4 +1,4 @@
-package com.tripsta.common.envelope;
+package com.sbsk.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

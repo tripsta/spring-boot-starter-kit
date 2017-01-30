@@ -1,4 +1,4 @@
-package com.tripsta.common.envelope;
+package com.sbsk.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

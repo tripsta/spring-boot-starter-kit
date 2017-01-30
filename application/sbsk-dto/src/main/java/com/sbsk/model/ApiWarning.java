@@ -1,4 +1,4 @@
-package com.tripsta.common.envelope;
+package com.sbsk.model;
 
 
 public class ApiWarning {

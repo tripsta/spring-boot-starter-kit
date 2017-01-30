@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.HandlerMapping;
 
-import com.tripsta.common.envelope.ApiError;
-import com.tripsta.common.envelope.ApiErrorResponse;
+import com.sbsk.model.ApiError;
+import com.sbsk.model.ApiErrorResponse;
 import com.tripsta.common.exceptions.ExceptionType;
 import com.tripsta.common.exceptions.GenericException;
 import com.tripsta.common.exceptions.InvalidSessionException;

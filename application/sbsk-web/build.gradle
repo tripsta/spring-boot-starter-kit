@@ -8,8 +8,6 @@ jar {
 dependencies {
     compile project(':sbsk-dto')
     compile project(':sbsk-service')
-    compile project(':common-envelope')
-    compile project(':common-exceptions')
 
     compile(
             [group: 'org.springframework.boot', name: 'spring-boot-devtools', version: "${springBootVersion}"],
