@@ -43,11 +43,13 @@ task codeCoverage(type: JacocoReport, dependsOn: [jacocoTestReport], group: "ver
         def outputLine1 = "Code coverage results:"
         def outputLine2 = "file://${buildDir}/reports/jacoco/index.html"
         def startItem = '|  ', endItem = '  |'
-        def repeatLength = startItem.length() + outputLine2.length() + endItem.length()
-        println(('-' * repeatLength) + '\n' +
-                startItem + outputLine1 + endItem + '\n' +
+        def repeatLength2 = startItem.length() + outputLine2.length() + endItem.length()
+        def repeatLength1 = outputLine2.length() - outputLine1.length()
+
+        println(('-' * repeatLength2) + '\n' +
+                startItem + outputLine1 + (' ' * repeatLength1) + endItem + '\n' +
                 startItem + outputLine2 + endItem + '\n' +
-                ('-' * repeatLength))
+                ('-' * repeatLength2))
     }
 }
 
