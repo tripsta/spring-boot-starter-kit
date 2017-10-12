@@ -10,6 +10,7 @@ springBoot {
                 'springBootVersion'         : "${springBootVersion}",
                 'springFrameworkVersion'    : "${springFrameworkVersion}",
                 'springSecurityVersion'     : "${springSecurityVersion}",
+                'h2Version'                 : "${h2Version}",
 
                 'project.rootDir'           : "${project.rootDir}",
                 'project.buildDir'          : "${project.buildDir}"
