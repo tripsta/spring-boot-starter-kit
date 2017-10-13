@@ -1,4 +1,6 @@
 springBoot {
+    backupSource = false
+    /*
     buildInfo {
         additionalProperties = [
                 'artifactoryVersion'        : "${artifactoryVersion}",
@@ -16,4 +18,5 @@ springBoot {
                 'project.buildDir'          : "${project.buildDir}"
         ]
     }
+    */
 }
