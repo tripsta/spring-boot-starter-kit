@@ -1,0 +1,11 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'sbsk-integration-test'
+	version = '0.0.1-SNAPSHOT'
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
