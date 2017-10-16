@@ -1,11 +1,22 @@
 apply plugin: 'org.springframework.boot'
 
+bootRepackage.enabled = false
+bootRun.enabled = false
+
 jar {
 	baseName = 'sbsk-integration-test'
 	version = '0.0.1-SNAPSHOT'
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile project(':sbsk-web')
+
+	testCompile(
+			[group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"],
+			[group: 'org.springframework.security', name: 'spring-security-test', version: "${springSecurityVersion}"]
+	)
+}
+
+test {
+	exclude 'com/sbsk/integration/**'
 }
