@@ -1,5 +1,5 @@
 test {
-    dependsOn 'cleanTest'
+    outputs.upToDateWhen { false }
 
     testLogging {
 

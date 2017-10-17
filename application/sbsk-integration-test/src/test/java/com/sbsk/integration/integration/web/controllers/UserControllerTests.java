@@ -1,11 +1,11 @@
-package com.sbsk.web.controllers;
+package com.sbsk.integration.integration.web.controllers;
 
 import com.sbsk.persistence.entities.user.UserEntity;
 import com.sbsk.persistence.repositories.UserRepository;
 import com.sbsk.service.utils.UserUtils;
+import com.sbsk.web.WebApplication;
 import org.json.JSONObject;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +22,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Ignore("These are integration tests and should be moved to sbsk-integration-test module")
 @Transactional
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = {WebApplication.class})
 @ActiveProfiles("test")
 public class UserControllerTests {
 

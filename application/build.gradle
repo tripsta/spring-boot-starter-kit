@@ -23,7 +23,6 @@ allprojects {
 
     apply plugin: "groovy"
     apply plugin: "jacoco"
-    apply plugin: "com.jfrog.artifactory"
     apply from: "${rootDir}/gradle/versioning.gradle"
 
     repositories {

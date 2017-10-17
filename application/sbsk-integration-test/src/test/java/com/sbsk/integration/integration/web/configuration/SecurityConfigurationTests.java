@@ -1,5 +1,6 @@
-package com.sbsk.web.configuration;
+package com.sbsk.integration.integration.web.configuration;
 
+import com.sbsk.web.WebApplication;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,9 +19,8 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Ignore("These are integration tests and should be moved to sbsk-integration-test module")
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = {WebApplication.class})
 @ActiveProfiles("test")
 public class SecurityConfigurationTests {
 
@@ -73,6 +73,7 @@ public class SecurityConfigurationTests {
 //        .andExpect(status().isOk());
 //  }
 
+  @Ignore
   @Test
   @WithMockUser(
       username = "nikos",
