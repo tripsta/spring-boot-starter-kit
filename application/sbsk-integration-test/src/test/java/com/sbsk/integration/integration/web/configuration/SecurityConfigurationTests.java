@@ -73,7 +73,6 @@ public class SecurityConfigurationTests {
 //        .andExpect(status().isOk());
 //  }
 
-  @Ignore
   @Test
   @WithMockUser(
       username = "nikos",
