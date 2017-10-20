@@ -1,27 +1,108 @@
 ext.buildTimestamp = new Date().format('yyyyMMddHHmmss')
 
-version = new ProjectVersion(1, 0, System.env.BUILD_NUMBER)
-// version = new ProjectVersion(1, 0, ext.buildTimestamp)
+/**
+ * Set enviromental variable BUILD_NUMBER to add Jenkins BUILD_NUMBER version to artifact's naming OR
+ * use the timestamp to name the artifact
+ *
+ * Examples
+ *  - name with BUILD_NUMBER: sbsk-web-1.0.JENKINS-BUILDNUMBER-123.jar
+ *  - name without BUILD_NUMBER: sbsk-web-1.0.SNAPSHOT-20170301145709.jar
+ */
+
+version = new ProjectVersion(
+        project.findProperty("currentVersionMajor"),
+        project.findProperty("currentVersionMinor"),
+        project.findProperty("buildTimestamp"),
+        project.findProperty("gitBranch"),
+        project.findProperty("gitRevision")
+)
 
 class ProjectVersion {
-    Integer major
-    Integer minor
-    String build
+    Integer major = 0
+    Integer minor = 0
+    String patch
 
-    ProjectVersion(Integer major, Integer minor, String build) {
-        this.major = major
-        this.minor = minor
-        this.build = build
+    ProjectVersion(
+            String major,
+            String minor,
+            String buildTimestamp,
+            String gitBranch,
+            String gitRevision
+    ) {
+        this.major = Integer.parseInt(major)
+        this.minor = Integer.parseInt(minor)
+        setPatchVersion(buildTimestamp, gitBranch, gitRevision)
+    }
+
+    private void setPatchVersion(
+            String buildTimestamp,
+            String gitBranch,
+            String gitRevision
+    ) {
+        List<String> parts = new ArrayList<String>()
+
+        String build = System.env.BUILD_NUMBER
+        if (build != null) {
+            parts.add("JENKINS")
+            parts.add("BUILDNUMBER")
+            parts.add(build)
+        }
+
+        if (parts.size() == 0) {
+            parts.add("SNAPSHOT")
+            parts.add(buildTimestamp)
+        }
+
+        String envBranch = System.env.GIT_BRANCH
+        String branch
+        if (envBranch != null) {
+            branch = envBranch
+        } else if (gitBranch != null && gitBranch != "head") {
+            branch = gitBranch
+        }
+        if(branch != null) {
+            parts.add(branch.toLowerCase().replace("/", "-"))
+        }
+
+        if (gitRevision != null) {
+            parts.add(gitRevision)
+        }
+
+        patch = parts.toString().substring(1, parts.toString().length() - 1).replace(", ", "-")
     }
 
     @Override
     String toString() {
-        String fullVersion = "$major.$minor"
+        String result = "$major.$minor"
 
-        if (build) {
-            fullVersion += ".$build"
+        if (patch != null && patch != "") {
+            result += ".$patch"
         }
 
-        fullVersion
+        result
+    }
+}
+
+/**
+ * Set enviromental variable BUILD_GROUP to add artifact to a specific group, eg: staging
+ */
+group = new ProjectGroup(System.env.BUILD_GROUP)
+
+class ProjectGroup {
+    String group
+
+    ProjectGroup(String group) {
+        this.group = group
+    }
+
+    @Override
+    String toString() {
+        String result = "sbsk"
+
+        if (group != null && group != "") {
+            result += "-$group"
+        }
+
+        result
     }
 }

@@ -19,6 +19,8 @@ api:
 # Informative endpoints
 management:
   context-path: /admin
+  security:
+    roles: ADMIN
   info:
     build:
       enabled: true

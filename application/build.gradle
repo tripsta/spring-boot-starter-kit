@@ -8,7 +8,8 @@ buildscript {
     dependencies {
         classpath("org.jfrog.buildinfo:build-info-extractor-gradle:${jfrogBuildinfo}")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gradleGitPropertiesVersion}"
+        classpath("gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gradleGitPropertiesVersion}")
+        classpath("org.ajoberstar:grgit:${gradleGitVersion}")
     }
 }
 
@@ -17,14 +18,17 @@ buildscript {
  */
 
 allprojects {
+    apply from: "${rootDir}/gradle/versioning.gradle"
+    apply from: "${rootDir}/gradle/git-properties.gradle"
+    apply from: "${rootDir}/gradle/naming.gradle"
+
     apply plugin: "idea"
     apply plugin: "eclipse"
     apply plugin: "java"
+    apply plugin: "maven"
 
     apply plugin: "groovy"
     apply plugin: "jacoco"
-    apply plugin: "com.jfrog.artifactory"
-    apply from: "${rootDir}/gradle/versioning.gradle"
 
     repositories {
         mavenCentral()

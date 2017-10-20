@@ -15,8 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  private static String ROLE_ADMIN = "ADMIN";
-  private static String ROLE_USER = "USER";
+  private static final String ROLE_ADMIN = "ADMIN";
+  private static final String ROLE_USER = "USER";
 
   @Autowired
   Environment environment;
