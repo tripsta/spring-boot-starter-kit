@@ -11,7 +11,7 @@ dependencies {
     compile(
             [group: 'com.h2database', name: 'h2', version: "${h2Version}"],
             [group: 'org.springframework', name: 'spring-jdbc', version: "${springFrameworkVersion}"],
-            [group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "${springBootVersion}"]
-
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "${springBootVersion}"],
+            [group: 'org.springframework.data', name: 'spring-data-couchbase', version: "${couchbaseVersion}"]
     )
 }

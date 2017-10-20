@@ -7,6 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApplicationUtils {
 
+  public final static String PROFILE_DEVELOPMENT = "development";
+  public final static String PROFILE_PRODUCTION = "production";
+  public final static String PROFILE_STAGING = "staging";
+  public final static String PROFILE_TEST = "test";
+
   @Autowired
   Environment environment;
 
