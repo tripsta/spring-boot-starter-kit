@@ -15,6 +15,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+  private static final String ROLE_ADMIN = "ADMIN";
+  private static final String ROLE_USER = "USER";
+
   @Autowired
   Environment environment;
 
@@ -26,11 +29,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     auth.inMemoryAuthentication()
         .withUser(environment.getProperty("security.role.user.username"))
         .password(environment.getProperty("security.role.user.password"))
-        .roles("USER")
+        .roles(ROLE_USER)
         .and()
         .withUser(environment.getProperty("security.role.admin.username"))
         .password(environment.getProperty("security.role.admin.password"))
-        .roles("USER", "ADMIN");
+        .roles(ROLE_USER, ROLE_ADMIN);
   }
 
   @Override
@@ -42,15 +45,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers("/public/**").permitAll()
         .antMatchers("/admin/ping").permitAll()
         .antMatchers("/admin/health").permitAll()
-        .antMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated()
+        .antMatchers("/admin/**").hasRole(ROLE_ADMIN).anyRequest().authenticated()
         .antMatchers("/publicerror").permitAll()
         .and()
         .httpBasic();
 
-    http.headers().frameOptions().disable();
-
     if (applicationUtils.isDevelopmentProfile()) {
       http.authorizeRequests().antMatchers("**").permitAll();
     }
+
+    http.headers().frameOptions().disable();
   }
 }

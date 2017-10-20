@@ -2,7 +2,6 @@ apply plugin: 'org.springframework.boot'
 
 jar {
     baseName = 'sbsk-web'
-    version = '0.0.1-SNAPSHOT'
 }
 
 dependencies {
@@ -24,5 +23,5 @@ dependencies {
 
 }
 
-apply from: "${rootDir}/gradle/build-info.gradle"
+apply from: "${rootDir}/gradle/springboot.gradle"
 apply from: "${rootDir}/gradle/git-info.gradle"

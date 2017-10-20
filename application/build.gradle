@@ -1,17 +1,4 @@
 buildscript {
-    ext {
-        artifactoryVersion = "4.4.0"
-        fluentLoggerVersion = "0.3.2"
-        gradleGitPropertiesVersion = "1.4.17"
-        jacksonVersion = "2.8.5"
-        logbackClassicVersion = "1.1.9"
-        powermockVersion = "1.6.6"
-        springBootVersion = "1.4.3.RELEASE"
-        springFrameworkVersion = "4.3.5.RELEASE"
-        springSecurityVersion = "4.2.1.RELEASE"
-        h2Version = "1.1.104"
-        jUnitVersion = "4.12"
-    }
     repositories {
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
@@ -19,41 +6,51 @@ buildscript {
     }
 
     dependencies {
+        classpath("org.jfrog.buildinfo:build-info-extractor-gradle:${jfrogBuildinfo}")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("org.jfrog.buildinfo:build-info-extractor-gradle:${artifactoryVersion}")
-        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gradleGitPropertiesVersion}"
+        classpath("gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gradleGitPropertiesVersion}")
+        classpath("org.ajoberstar:grgit:${gradleGitVersion}")
     }
 }
 
+/**
+ * ALL PROJECTS
+ */
+
 allprojects {
+    apply from: "${rootDir}/gradle/versioning.gradle"
+    apply from: "${rootDir}/gradle/git-properties.gradle"
+    apply from: "${rootDir}/gradle/naming.gradle"
+
     apply plugin: "idea"
     apply plugin: "eclipse"
     apply plugin: "java"
+    apply plugin: "maven"
 
     apply plugin: "groovy"
     apply plugin: "jacoco"
-    apply plugin: "com.jfrog.artifactory"
-    apply from: "${rootDir}/gradle/versioning.gradle"
 
     repositories {
         mavenCentral()
     }
 }
 
-def buildConfig() {
-    def configFile = file("$rootDir/gradle/config/buildConfig.groovy")
-    def parsedConfig = new ConfigSlurper().parse(configFile.toURL())
-    ext.config = parsedConfig
+/**
+ * SUBPROJECTS
+ */
+
+// For all subprojects
+configure(subprojects) {
+    apply from: "${rootDir}/gradle/test.gradle"
 }
 
-configure(subprojects) {
-    apply from: "${rootDir}/gradle/versioning.gradle"
-//    apply from: "${rootDir}/gradle/assemble.gradle"
-    apply from: "${rootDir}/gradle/test-summary.gradle"
+/**
+ * MAIN APPLICATION
+ */
 
-    buildConfig()
-    apply from: "${rootDir}/gradle/artifactory.gradle"
-    artifactoryPublish.dependsOn build
+// For 'sbsk-integration-test' subproject
+configure(subprojects.findAll { it.name == 'sbsk-integration-test' }) {
+    apply from: "${rootDir}/gradle/integration-test.gradle"
 }
 
 jar {

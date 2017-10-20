@@ -1,8 +1,11 @@
 jacoco {
-    toolVersion = "0.7.7.201606060606"
+    toolVersion = "${jacocoVersion}"
 }
 
 task codeCoverage(type: JacocoReport, dependsOn: [jacocoTestReport], group: "verification") {
+
+    description = 'Runs all unit tests and create a JaCoCo report on code coverage'
+    dependsOn(subprojects*.test)
 
     // Gather execution data from all subprojects
     // (change this if you e.g. want to calculate unit test/integration test coverage separately)
@@ -51,9 +54,4 @@ task codeCoverage(type: JacocoReport, dependsOn: [jacocoTestReport], group: "ver
                 startItem + outputLine2 + endItem + '\n' +
                 ('-' * repeatLength2))
     }
-}
-
-// always run the tests before generating the report
-codeCoverage.dependsOn {
-    subprojects*.test
 }

@@ -1,8 +1,9 @@
-package com.sbsk.web.controllers;
+package com.sbsk.integration.integration.web.controllers;
 
 import com.sbsk.persistence.entities.user.UserEntity;
 import com.sbsk.persistence.repositories.UserRepository;
 import com.sbsk.service.utils.UserUtils;
+import com.sbsk.web.WebApplication;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Transactional
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = {WebApplication.class})
 @ActiveProfiles("test")
 public class UserControllerTests {
 

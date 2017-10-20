@@ -4,26 +4,3 @@ binaryRepository {
     password = !System.getProperty('repo.password') ? '7WN8^UbSqk-Kbe' : System.getProperty('repo.password')
     name = !System.getProperty('repo.name') ? 'libs-release-local' : System.getProperty('repo.name')
 }
-
-environments {
-    development {
-        server {
-            hostname = 'localhost'
-            context = 'revop'
-        }
-    }
-
-    staging {
-        server {
-            hostname = 'revop-staging.tripsta.net'
-            context = 'revop'
-        }
-    }
-
-    production {
-        server {
-            hostname = 'revop.tripsta.net'
-            context = 'revop'
-        }
-    }
-}

@@ -1,0 +1,3 @@
+springBoot {
+    backupSource = false
+}

@@ -1,0 +1,21 @@
+test {
+    outputs.upToDateWhen { false }
+
+    testLogging {
+
+        afterSuite { desc, result ->
+            if (!desc.parent) { // Will NOT match the outermost suite
+                def outputLine1 = "Test result: ${result.resultType} - ${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped"
+                def outputLine2 = "file://${buildDir}/reports/tests/test/index.html"
+                def startItem = '|  ', endItem = '  |'
+                def repeatLength2 = startItem.length() + outputLine2.length() + endItem.length()
+                def repeatLength1 = outputLine2.length() - outputLine1.length()
+
+                println(('-' * repeatLength2) + '\n' +
+                        startItem + outputLine1 + (' ' * repeatLength1) + endItem + '\n' +
+                        startItem + outputLine2 + endItem + '\n' +
+                        ('-' * repeatLength2))
+            }
+        }
+    }
+}

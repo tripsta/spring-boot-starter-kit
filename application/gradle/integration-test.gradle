@@ -1,31 +1,40 @@
-// Assumes 'java', 'groovy' or 'scala' plugins have been applied before
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
 
-// Add integration test source sets
 sourceSets {
-    integrationTest { sourceSet ->
-        ["java", "groovy", "scala", "resources"].each {
-            if (!sourceSet.hasProperty(it)) return
-            sourceSet."$it".srcDir file("src/integration-test/${it}")
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file("${rootDir}/sbsk-integration-test/src/test/java")
+        }
+        resources.srcDir file("${rootDir}/sbsk-integration-test/src/test/resources")
+    }
+}
+
+task integrationTest(type: Test) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+
+    afterSuite { desc, result ->
+        println(desc)
+        if (!desc.parent) { // Will NOT match the outermost suite
+            def outputLine1 = "Test result: ${result.resultType} - ${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped"
+            def outputLine2 = "file://${buildDir}/reports/tests/test/index.html"
+            def startItem = '|  ', endItem = '  |'
+            def repeatLength2 = startItem.length() + outputLine2.length() + endItem.length()
+            def repeatLength1 = outputLine2.length() - outputLine1.length()
+
+            println(('-' * repeatLength2) + '\n' +
+                    startItem + outputLine1 + (' ' * repeatLength1) + endItem + '\n' +
+                    startItem + outputLine2 + endItem + '\n' +
+                    ('-' * repeatLength2))
         }
     }
 }
 
-// Setup dependencies for integration testing
-dependencies {
-    integrationTestCompile sourceSets.main.output
-    integrationTestCompile sourceSets.test.output
-    integrationTestCompile configurations.testCompile
-    integrationTestRuntime configurations.testRuntime
-}
-
-// Define integration test task
-task integrationTest(type: Test) {
-    testClassesDir = sourceSets.integrationTest.output.classesDir
-    classpath = sourceSets.integrationTest.runtimeClasspath
-}
-
-//Ensure that the check task fails the build if there are failing integration tests.
-//check.dependsOn integrationTest
-
-//Ensure that our unit tests are run before our integration tests
+check.dependsOn integrationTest
 integrationTest.mustRunAfter test

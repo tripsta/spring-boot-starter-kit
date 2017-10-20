@@ -1,0 +1,24 @@
+/**
+ * Set enviromental variable BUILD_JAR_SUFFIX to a specific suffix to the built jar file, eg: staging
+ * usage: `baseName = 'sbsk-dto' + project.findProperty("jarNameSuffix").toString()`
+ */
+ext.jarNameSuffix = new JarNameSuffix(System.env.BUILD_JAR_SUFFIX).toString()
+
+class JarNameSuffix {
+    String suffix
+
+    JarNameSuffix(String suffix) {
+        this.suffix = suffix
+    }
+
+    @Override
+    String toString() {
+        String result = ""
+
+        if (suffix) {
+            result += "-${suffix}"
+        }
+
+        result
+    }
+}

@@ -6,4 +6,6 @@ include 'sbsk-service'
 
 include 'sbsk-persistence'
 
+include 'sbsk-integration-test'
+
 include 'common-exceptions'
