@@ -1,18 +1,26 @@
 package com.sbsk.persistence.entities.user;
 
-import javax.persistence.*;
+import com.couchbase.client.java.repository.annotation.Field;
+import com.couchbase.client.java.repository.annotation.Id;
+import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
 
-@Entity(name = "user")
-@Table(name = "user", indexes = {@Index(columnList = "lastName", unique = false)})
+@Document(expiry = 10)
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
+
+    @Field
     private String firstName;
+    @Field
     private String lastName;
+    @Field
     private Integer age;
+    @Field
     private Boolean isAdult;
+    @Field
     private Integer dateCreated;
 
     public UserEntity() {
@@ -35,43 +43,43 @@ public class UserEntity {
     }
 
     public String getFirstName() {
-      return firstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-      this.firstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-      return lastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-      this.lastName = lastName;
+        this.lastName = lastName;
     }
 
     public Integer getAge() {
-      return age;
+        return age;
     }
 
     public void setAge(Integer age) {
-      this.age = age;
+        this.age = age;
     }
 
     public Boolean getIsAdult() {
-      return isAdult;
+        return isAdult;
     }
 
     public void setIsAdult(Boolean isAdult) {
-      this.isAdult = isAdult;
+        this.isAdult = isAdult;
     }
 
     public Integer getDateCreated() {
-      return dateCreated;
+        return dateCreated;
     }
 
     public void setDateCreated(Integer dateCreated) {
-      this.dateCreated = dateCreated;
+        this.dateCreated = dateCreated;
     }
 
     @Override
