@@ -1,7 +1,6 @@
 package com.sbsk.service.validators;
 
 import com.sbsk.dtos.user.UserRequestDto;
-import com.sbsk.persistence.entities.user.UserEntity;
 import com.sbsk.persistence.repositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -135,7 +133,7 @@ public class UserValidatorTests {
   @Test
   public void userExists_shouldReturnTrue_whenUserReallyExists() {
 
-    Long id = new Long(0);
+    String id = new String("0");
     when(userRepository.exists(id)).thenReturn(true);
 
     Boolean result = userValidator.userExists(id);
@@ -147,7 +145,7 @@ public class UserValidatorTests {
   @Test
   public void userExists_shouldReturnFalse_whenUserDoesNotExist() {
 
-    Long id = new Long(0);
+    String id = new String("0");
     when(userRepository.exists(id)).thenReturn(false);
 
     Boolean result = userValidator.userExists(id);

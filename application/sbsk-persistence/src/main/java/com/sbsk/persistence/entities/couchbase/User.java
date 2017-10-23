@@ -1,24 +1,33 @@
-package com.sbsk.persistence.entities.user;
+package com.sbsk.persistence.entities.couchbase;
 
-import javax.persistence.*;
+import com.couchbase.client.java.repository.annotation.Field;
+import com.couchbase.client.java.repository.annotation.Id;
+import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
+import org.springframework.data.couchbase.core.mapping.id.GenerationStrategy;
 
-@Entity(name = "user")
-@Table(name = "user", indexes = {@Index(columnList = "lastName", unique = false)})
-public class UserEntity {
+@Document
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationStrategy.UNIQUE)
+    private String id;
+
+    @Field
     private String firstName;
+    @Field
     private String lastName;
+    @Field
     private Integer age;
+    @Field
     private Boolean isAdult;
+    @Field
     private Integer dateCreated;
 
-    public UserEntity() {
+    public User() {
     }
 
-    public UserEntity(String firstName, String lastName, Integer age, Boolean isAdult, Integer dateCreated) {
+    public User(String firstName, String lastName, Integer age, Boolean isAdult, Integer dateCreated) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -26,11 +35,11 @@ public class UserEntity {
         this.dateCreated = dateCreated;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -76,7 +85,7 @@ public class UserEntity {
 
     @Override
     public String toString() {
-        return "UserEntity{" +
+        return "User{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

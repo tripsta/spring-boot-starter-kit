@@ -9,12 +9,12 @@ public interface UserService {
 
   List<UserResponseDto> getAllUsers();
 
-  UserResponseDto getUser(Long id);
+  UserResponseDto getUser(String id);
 
   UserResponseDto createUser(UserRequestDto userRequestDto);
 
-  UserResponseDto updateUser(Long id, UserRequestDto userRequestDto);
+  UserResponseDto updateUser(String id, UserRequestDto userRequestDto);
 
-  void deleteUser(Long id);
+  void deleteUser(String id);
 
 }

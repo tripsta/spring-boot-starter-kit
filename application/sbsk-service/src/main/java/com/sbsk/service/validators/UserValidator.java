@@ -31,7 +31,7 @@ public class UserValidator {
             age > AGE_LOWER_BOUND && age < AGE_UPPER_BOUND;
   }
 
-  public Boolean userExists(Long id) {
+  public Boolean userExists(String id) {
     return id != null &&
             userRepository.exists(id);
   }

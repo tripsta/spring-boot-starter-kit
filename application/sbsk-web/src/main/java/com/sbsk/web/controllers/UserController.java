@@ -17,17 +17,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(
-        method = {RequestMethod.GET},
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    @ResponseBody
-    public ApiBaseResponse getAllUsers() {
-        ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
-        apiBaseResponse.insertData(USER, userService.getAllUsers());
-        apiBaseResponse.setSuccess(true);
-        return apiBaseResponse;
-    }
+//    @RequestMapping(
+//        method = {RequestMethod.GET},
+//        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+//    )
+//    @ResponseBody
+//    public ApiBaseResponse getAllUsers() {
+//        ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
+//        apiBaseResponse.insertData(USER, userService.getAllUsers());
+//        apiBaseResponse.setSuccess(true);
+//        return apiBaseResponse;
+//    }
 
     @RequestMapping(
         value = "/{id}",
@@ -36,7 +36,7 @@ public class UserController {
     )
     @ResponseBody
     public ApiBaseResponse getUser(
-            @PathVariable Long id
+            @PathVariable String id
     ) {
         ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
         apiBaseResponse.insertData(USER, userService.getUser(id));
@@ -68,7 +68,7 @@ public class UserController {
     )
     @ResponseBody
     public ApiBaseResponse updateUser(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody UserRequestDto userRequestDto
     ) {
         ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
@@ -82,7 +82,7 @@ public class UserController {
         method = {RequestMethod.DELETE}
     )
     @ResponseBody
-    public ApiBaseResponse deleteUser(@PathVariable Long id) {
+    public ApiBaseResponse deleteUser(@PathVariable String id) {
         ApiBaseResponse apiBaseResponse = new ApiBaseResponse();
         userService.deleteUser(id);
         apiBaseResponse.setSuccess(true);

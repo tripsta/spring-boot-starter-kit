@@ -2,7 +2,7 @@ package com.sbsk.service.converters.user;
 
 import com.sbsk.dtos.user.UserRequestDto;
 import com.sbsk.dtos.user.UserResponseDto;
-import com.sbsk.persistence.entities.user.UserEntity;
+import com.sbsk.persistence.entities.couchbase.User;
 import com.sbsk.service.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,30 +16,30 @@ public class UserConverter {
     @Autowired
     private UserUtils userUtils;
 
-    public List<UserResponseDto> convertUserEntitiesToUserResponseDtos(List<UserEntity> userEntities) {
+    public List<UserResponseDto> convertUserEntitiesToUserResponseDtos(List<User> users) {
         List<UserResponseDto> userResponseDtos = new ArrayList<UserResponseDto>();
-        for (UserEntity userEntity : userEntities) {
-            userResponseDtos.add(this.convertUserEntityToUserResponseDto(userEntity));
+        for (User user : users) {
+            userResponseDtos.add(this.convertUserEntityToUserResponseDto(user));
         }
         return userResponseDtos;
     }
 
-    public UserEntity convertUserRequestDtoToUserEntity(UserRequestDto userRequestDto) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setFirstName(userRequestDto.getFirstName());
-        userEntity.setLastName(userRequestDto.getLastName());
-        userEntity.setAge(userRequestDto.getAge());
-        userEntity.setIsAdult(userUtils.isAdult(userRequestDto.getAge()));
-        return userEntity;
+    public User convertUserRequestDtoToUserEntity(UserRequestDto userRequestDto) {
+        User user = new User();
+        user.setFirstName(userRequestDto.getFirstName());
+        user.setLastName(userRequestDto.getLastName());
+        user.setAge(userRequestDto.getAge());
+        user.setIsAdult(userUtils.isAdult(userRequestDto.getAge()));
+        return user;
     }
 
-    public UserResponseDto convertUserEntityToUserResponseDto(UserEntity userEntity) {
+    public UserResponseDto convertUserEntityToUserResponseDto(User user) {
         UserResponseDto userResponseDto = new UserResponseDto();
-        userResponseDto.setId(userEntity.getId());
-        userResponseDto.setFirstName(userEntity.getFirstName());
-        userResponseDto.setLastName(userEntity.getLastName());
-        userResponseDto.setAge(userEntity.getAge());
-        userResponseDto.setIsAdult(userEntity.getIsAdult());
+        userResponseDto.setId(user.getId());
+        userResponseDto.setFirstName(user.getFirstName());
+        userResponseDto.setLastName(user.getLastName());
+        userResponseDto.setAge(user.getAge());
+        userResponseDto.setIsAdult(user.getIsAdult());
         return userResponseDto;
     }
 

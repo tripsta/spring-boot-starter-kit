@@ -1,0 +1,7 @@
+# Datasources
+spring:
+  couchbase:
+    bootstrap-hosts: localhost
+    bucket:
+      name: test
+      password: 123456

@@ -9,9 +9,12 @@ jar {
 
 dependencies {
     compile(
-            [group: 'com.h2database', name: 'h2', version: "${h2Version}"],
-            [group: 'org.springframework', name: 'spring-jdbc', version: "${springFrameworkVersion}"],
-            [group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "${springBootVersion}"]
+            /** only used in @link ExceptionHandlingAdvisor#HttpEntity */
+            [group: 'javax.persistence', name: 'persistence-api', version: "1.0.2"],
 
+            /** only used in @link Transactional annotation */
+            [group: 'javax.transaction', name: 'javax.transaction-api', version: "1.2"],
+
+            [group: 'org.springframework.data', name: 'spring-data-couchbase', version: "${couchbaseVersion}"]
     )
 }

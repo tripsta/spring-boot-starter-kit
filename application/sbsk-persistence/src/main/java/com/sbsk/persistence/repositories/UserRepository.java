@@ -1,15 +1,9 @@
 package com.sbsk.persistence.repositories;
 
-import com.sbsk.persistence.entities.user.UserEntity;
+import com.sbsk.persistence.entities.couchbase.User;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-@Repository
-public interface UserRepository extends CrudRepository<UserEntity, Long> {
-
-  List<UserEntity> findAll();
+public interface UserRepository extends CrudRepository<User, String> {
 
 }
 

@@ -11,6 +11,13 @@ server:
     path: /error # Path of the error controllers.
     whitelabel.enabled: true # Enable the default error page displayed in browsers in case of a server error.
 
+# Datasource
+spring:
+  couchbase:
+    bootstrap-hosts: localhost
+    bucket:
+      name: test
+      password: 123456
 
 # Web specific properties
 api:
