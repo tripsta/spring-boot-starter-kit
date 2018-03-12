@@ -1,12 +1,10 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
-
-    <include resource="config/logback/fluentd-properties.xml"/>
-    <include resource="config/logback/fluentd-appender.xml"/>
+    <include resource="config/logback/properties/properties-production.xml"/>
+    <include resource="config/logback/appenders/fluentd.xml"/>
 
     <root level="INFO">
-        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FLUENTD"/>
     </root>
-
 </configuration>

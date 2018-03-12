@@ -1,0 +1,14 @@
+<included>
+    <appender name="FLUENTD" class="com.sbsk.web.logging.appender.FluentAppender">
+        <tag>${TAG}</tag>
+        <label>${LABEL}</label>
+        <environment>${ENVIRONMENT}</environment>
+        <remoteHost>${REMOTE_HOST}</remoteHost>
+        <port>${REMOTE_PORT}</port>
+        <maxThreads>${MAX_THREADS}</maxThreads>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${LOG_LEVEL}</level>
+        </filter>
+    </appender>
+</included>

@@ -1,6 +1,6 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
-    <include resource="config/logback/properties/properties-development.xml"/>
+    <include resource="config/logback/properties/properties-test.xml"/>
 
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
