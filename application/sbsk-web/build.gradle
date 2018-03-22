@@ -23,5 +23,5 @@ dependencies {
 
 }
 
-apply from: "${rootDir}/gradle/springboot.gradle"
-apply from: "${rootDir}/gradle/git-info.gradle"
+//apply from: "${rootDir}/gradle/springboot.gradle"
+//apply from: "${rootDir}/gradle/git-info.gradle"

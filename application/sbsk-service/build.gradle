@@ -1,6 +1,5 @@
 apply plugin: 'org.springframework.boot'
 
-bootRepackage.enabled = false
 bootRun.enabled = false
 
 jar {
