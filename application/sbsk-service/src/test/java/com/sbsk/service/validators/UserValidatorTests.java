@@ -1,33 +1,29 @@
 package com.sbsk.service.validators;
 
 import com.sbsk.dtos.user.UserRequestDto;
-import com.sbsk.persistence.entities.user.UserEntity;
 import com.sbsk.persistence.repositories.UserRepository;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.MockitoAnnotations;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(UserValidator.class)
 public class UserValidatorTests {
 
-  @InjectMocks
-  private UserValidator userValidator;
+  @Mock UserRepository userRepository;
+  @InjectMocks UserValidator userValidator;
 
-  @Mock
-  private UserRepository userRepository;
+  @Before
+  public void setUp() throws Exception {
+    MockitoAnnotations.initMocks(this);
+  }
 
   @Test
   public void validateUser_shouldReturnTrue_whenOnHappyPath() {
-
     UserRequestDto userRequestDto = new UserRequestDto();
     userRequestDto.setFirstName("Foo");
     userRequestDto.setLastName("Bar");
@@ -36,12 +32,10 @@ public class UserValidatorTests {
     Boolean result = userValidator.validateUser(userRequestDto);
 
     assertTrue(result);
-
   }
 
   @Test
   public void validateUser_shouldReturnFalse_whenFirstNameInvalid() {
-
     UserRequestDto userRequestDto = new UserRequestDto();
     userRequestDto.setFirstName("");
     userRequestDto.setLastName("Bar");
@@ -50,12 +44,10 @@ public class UserValidatorTests {
     Boolean result = userValidator.validateUser(userRequestDto);
 
     assertFalse(result);
-
   }
 
   @Test
   public void validateUser_shouldReturnFalse_whenLastNameIsInvalid() {
-
     UserRequestDto userRequestDto = new UserRequestDto();
     userRequestDto.setFirstName("Foo");
     userRequestDto.setAge(69);
@@ -63,12 +55,10 @@ public class UserValidatorTests {
     Boolean result = userValidator.validateUser(userRequestDto);
 
     assertFalse(result);
-
   }
 
   @Test
   public void validateUser_shouldReturnFalse_whenAgeIsInvalid() {
-
     UserRequestDto userRequestDto = new UserRequestDto();
     userRequestDto.setFirstName("Foo");
     userRequestDto.setLastName("Bar");
@@ -77,7 +67,6 @@ public class UserValidatorTests {
     Boolean result = userValidator.validateUser(userRequestDto);
 
     assertFalse(result);
-
   }
 
   @Test
@@ -92,7 +81,6 @@ public class UserValidatorTests {
 
   @Test
   public void isNameValid_shouldReturnFalse_whenNameHasLengthLessThanThreshold() {
-
     String name1 = "";
     String name2 = "Fo";
 
@@ -105,7 +93,6 @@ public class UserValidatorTests {
 
   @Test
   public void isAgeValid_shouldReturnTrue_whenAgeIsWithinBounds() {
-
     Integer age1 = 1;
     Integer age2 = 25;
     Integer age3 = 119;
@@ -121,7 +108,6 @@ public class UserValidatorTests {
 
   @Test
   public void isAgeValid_shouldReturnFalse_whenAgeIsOutOfBounds() {
-
     Integer age1 = 0;
     Integer age2 = 120;
 
@@ -134,26 +120,21 @@ public class UserValidatorTests {
 
   @Test
   public void userExists_shouldReturnTrue_whenUserReallyExists() {
-
     Long id = new Long(0);
-    when(userRepository.exists(id)).thenReturn(true);
+    when(userRepository.existsById(id)).thenReturn(true);
 
     Boolean result = userValidator.userExists(id);
 
     assertTrue(result);
-
   }
 
   @Test
   public void userExists_shouldReturnFalse_whenUserDoesNotExist() {
-
     Long id = new Long(0);
-    when(userRepository.exists(id)).thenReturn(false);
+    when(userRepository.existsById(id)).thenReturn(false);
 
     Boolean result = userValidator.userExists(id);
 
     assertFalse(result);
-
   }
-
 }

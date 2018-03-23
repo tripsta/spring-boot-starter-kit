@@ -6,54 +6,40 @@ import com.sbsk.persistence.entities.user.UserEntity;
 import com.sbsk.persistence.repositories.UserRepository;
 import com.sbsk.service.converters.user.UserConverter;
 import com.sbsk.service.validators.UserValidator;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.transaction.annotation.Transactional;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
-@Transactional
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(UserServiceImpl.class)
 public class UserServiceImplTests {
 
-    @InjectMocks
-    private UserServiceImpl userServiceImpl;
+    @Mock UserValidator userValidator;
+    @Mock UserConverter userConverter;
+    @Mock UserRepository userRepository;
+    @Mock UserRequestDto userRequestDto;
+    @Mock UserEntity userEntity;
+    @Mock UserResponseDto userResponseDto;
+    @InjectMocks UserServiceImpl userServiceImpl;
 
-    @Mock
-    private UserValidator userValidator;
-
-    @Mock
-    private UserConverter userConverter;
-
-    @Mock
-    private UserRepository userRepository;
-
-    @Mock
-    private UserRequestDto userRequestDto;
-
-    @Mock
-    private UserEntity userEntity;
-
-    @Mock
-    private UserResponseDto userResponseDto;
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void getAllUser_shouldFollowTheRightFlow() {
-
-        List<UserEntity> userEntities = new ArrayList<UserEntity>();
-        List<UserResponseDto> userResponseDtos = new ArrayList<UserResponseDto>();
+        List<UserEntity> userEntities = new ArrayList<>();
+        List<UserResponseDto> userResponseDtos = new ArrayList<>();
         when(userRepository.findAll()).thenReturn(userEntities);
         when(userConverter.convertUserEntitiesToUserResponseDtos(userEntities)).thenReturn(userResponseDtos);
 
@@ -65,42 +51,39 @@ public class UserServiceImplTests {
 
     @Test
     public void getUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
-
         Long id = new Long(0);
         when(userValidator.userExists(id)).thenReturn(true);
-        when(userRepository.findOne(id)).thenReturn(userEntity);
+        when(userRepository.findById(id)).thenReturn(Optional.of(userEntity));
         when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
 
         userServiceImpl.getUser(id);
 
         verify(userValidator, times(1)).userExists(id);
-        verify(userRepository, times(1)).findOne(id);
+        verify(userRepository, times(1)).findById(id);
         verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
     }
 
     @Test
     public void getUser_shouldRaiseError_whenUserDoesNotExist() {
-
         Long id = new Long(0);
         when(userValidator.userExists(id)).thenReturn(false);
-        when(userRepository.findOne(id)).thenReturn(userEntity);
+        when(userRepository.findById(id)).thenReturn(Optional.of(userEntity));
         when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
 
         try {
             userServiceImpl.getUser(id);
-            fail("Exception should have thrown");
+            Assert.fail("Exception should have thrown");
         } catch (RuntimeException e) {
             assertEquals(e.getMessage(), "User does not exist");
         }
 
         verify(userValidator, times(1)).userExists(id);
-        verify(userRepository, times(0)).findOne(id);
+        verify(userRepository, times(0)).findById(id);
         verify(userConverter, times(0)).convertUserEntityToUserResponseDto(userEntity);
     }
 
     @Test
     public void createUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
-
         when(userValidator.validateUser(userRequestDto)).thenReturn(true);
         when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
         when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
@@ -115,7 +98,6 @@ public class UserServiceImplTests {
 
     @Test
     public void createUser_shouldRaiseError_whenSomethingIsNotValidatedCorrectly() {
-
         when(userValidator.validateUser(userRequestDto)).thenReturn(false);
         when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
         when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
@@ -135,7 +117,6 @@ public class UserServiceImplTests {
 
     @Test
     public void updateUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
-
         when(userEntity.getId()).thenReturn(new Long(1));
         when(userValidator.userExists(userEntity.getId())).thenReturn(true);
         when(userValidator.validateUser(userRequestDto)).thenReturn(true);
@@ -154,7 +135,6 @@ public class UserServiceImplTests {
 
     @Test
     public void updateUser_shouldRaiseError_whenSomethingIsNotValidatedCorrectly() {
-
         when(userEntity.getId()).thenReturn(new Long(1));
         when(userValidator.userExists(userEntity.getId())).thenReturn(true);
         when(userValidator.validateUser(userRequestDto)).thenReturn(false);
@@ -178,7 +158,6 @@ public class UserServiceImplTests {
 
     @Test
     public void updateUser_shouldRaiseError_whenUserDoesNotExist() {
-
         when(userEntity.getId()).thenReturn(new Long(1));
         when(userValidator.userExists(userEntity.getId())).thenReturn(false);
         when(userValidator.validateUser(userRequestDto)).thenReturn(true);
@@ -202,7 +181,6 @@ public class UserServiceImplTests {
 
     @Test
     public void deleteUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
-
         Long id = new Long(0);
 
         when(userValidator.userExists(id)).thenReturn(true);
@@ -210,12 +188,11 @@ public class UserServiceImplTests {
         userServiceImpl.deleteUser(id);
 
         verify(userValidator, times(1)).userExists(id);
-        verify(userRepository, times(1)).delete(id);
+        verify(userRepository, times(1)).deleteById(id);
     }
 
     @Test
     public void deleteUser_shouldRaiseError_whenUserDoesNotExist() {
-
         Long id = new Long(0);
 
         when(userValidator.userExists(id)).thenReturn(false);
@@ -228,7 +205,6 @@ public class UserServiceImplTests {
         }
 
         verify(userValidator, times(1)).userExists(id);
-        verify(userRepository, times(0)).delete(id);
+        verify(userRepository, times(0)).deleteById(id);
     }
-
 }

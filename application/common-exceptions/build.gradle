@@ -1,13 +1,14 @@
 apply plugin: "maven-publish"
+jar.enabled = true
 
-jar {
-    baseName = 'common-exceptions'
+bootJar {
+    mustRunAfter tasks.clean
+    mainClassName = 'common-exceptions'
+    archiveName 'common-exceptions.jar'
 }
 
 dependencies {
-
     compile(
             [group: 'junit', name: 'junit', version: "${jUnitVersion}"]
     )
-
 }

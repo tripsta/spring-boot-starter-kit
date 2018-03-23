@@ -1,5 +1,5 @@
 springBoot {
-    buildInfo {
+   /* buildInfo {
         additionalProperties = [
                 'artifactoryVersion'        : "${artifactoryVersion}",
                 'fluentLoggerVersion'       : "${fluentLoggerVersion}",
@@ -14,5 +14,5 @@ springBoot {
                 'project.rootDir'           : "${project.rootDir}",
                 'project.buildDir'          : "${project.buildDir}"
         ]
-    }
+    }*/
 }

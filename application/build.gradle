@@ -1,7 +1,12 @@
 buildscript {
+    ext {
+        springBootVersion = "${springBootVersion}"
+    }
+
     repositories {
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://repo.spring.io/libs-snapshot' }
         jcenter()
     }
 
@@ -13,10 +18,6 @@ buildscript {
     }
 }
 
-/**
- * ALL PROJECTS
- */
-
 allprojects {
     apply from: "${rootDir}/gradle/versioning.gradle"
     apply from: "${rootDir}/gradle/git-properties.gradle"
@@ -26,6 +27,11 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "java"
     apply plugin: "maven"
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
     apply plugin: "groovy"
     apply plugin: "jacoco"
@@ -35,30 +41,24 @@ allprojects {
     }
 }
 
-/**
- * SUBPROJECTS
- */
-
-// For all subprojects
 configure(subprojects) {
     apply from: "${rootDir}/gradle/test.gradle"
 }
 
-/**
- * MAIN APPLICATION
- */
-
-// For 'sbsk-integration-test' subproject
 configure(subprojects.findAll { it.name == 'sbsk-integration-test' }) {
     apply from: "${rootDir}/gradle/integration-test.gradle"
 }
 
-jar {
-    baseName = "sbsk"
+bootJar {
+    manifest {
+        attributes 'Start-Class': 'com.sbsk.web.WebApplication'
+    }
 }
 
 dependencies {
     compile project(":sbsk-web")
+
+    runtime("org.springframework.boot:spring-boot-properties-migrator")
 }
 
 apply from: "${rootDir}/gradle/jacoco-multi-project.gradle"
