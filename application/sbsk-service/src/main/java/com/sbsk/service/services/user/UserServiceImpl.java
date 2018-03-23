@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -36,8 +37,8 @@ public class UserServiceImpl implements UserService {
         if (!userValidator.userExists(id)) {
             throw new RuntimeException("User does not exist");
         }
-        UserEntity userEntity = userRepository.findOne(id);
-        return userConverter.convertUserEntityToUserResponseDto(userEntity);
+        Optional<UserEntity> userEntity = userRepository.findById(id);
+        return userConverter.convertUserEntityToUserResponseDto(userEntity.get());
     }
 
     @Override
@@ -69,7 +70,6 @@ public class UserServiceImpl implements UserService {
         if (!userValidator.userExists(id)) {
             throw new RuntimeException("User does not exist");
         }
-        userRepository.delete(id);
+        userRepository.deleteById(id);
     }
-
 }

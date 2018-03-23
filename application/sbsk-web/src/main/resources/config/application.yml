@@ -34,3 +34,9 @@ management:
 logging:
   config: classpath:config/logback/default.xml
   file: logs/application.log
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, beans

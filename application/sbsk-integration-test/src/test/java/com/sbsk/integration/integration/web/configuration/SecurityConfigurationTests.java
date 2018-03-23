@@ -2,7 +2,6 @@ package com.sbsk.integration.integration.web.configuration;
 
 import com.sbsk.web.WebApplication;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,7 @@ public class SecurityConfigurationTests {
       roles = "USER"
   )
   public void user_shouldNotBeAbleToAccessAdminPages() throws Exception {
-    mockMvc.perform(get("/admin/beans"))
+    mockMvc.perform(get("/actuator/beans"))
         .andExpect(status().isForbidden());
   }
 
@@ -55,23 +54,9 @@ public class SecurityConfigurationTests {
       roles = "USER"
   )
   public void user_shouldBeAbleToAccessHealthPage() throws Exception {
-    mockMvc.perform(get("/admin/health"))
+    mockMvc.perform(get("/actuator/health"))
         .andExpect(status().isOk());
   }
-
-  //TODO: Find alternative query for health check
-
-//  @Test
-//  @WithMockUser(
-//      username = "nikos",
-//      password = "12345",
-//      roles = "USER"
-//  )
-//  public void user_shouldBeAbleToAccessPublicPages() throws Exception {
-//    mockMvc.perform(get(URI + "/user/1")
-//        .param("name", "Nikos"))
-//        .andExpect(status().isOk());
-//  }
 
   @Test
   @WithMockUser(
@@ -80,7 +65,7 @@ public class SecurityConfigurationTests {
       roles = "ADMIN"
   )
   public void admin_shouldBeAbleToAccessAdminPages() throws Exception {
-    mockMvc.perform(get("/admin/beans"))
+    mockMvc.perform(get("/actuator/beans"))
         .andExpect(status().isOk());
   }
 }

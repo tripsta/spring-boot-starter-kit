@@ -4,42 +4,31 @@ import com.sbsk.dtos.user.UserRequestDto;
 import com.sbsk.dtos.user.UserResponseDto;
 import com.sbsk.persistence.entities.user.UserEntity;
 import com.sbsk.service.utils.UserUtils;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.MockitoAnnotations;
 
-import java.util.List;
-
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(UserConverter.class)
 public class UserConverterTests {
 
-    @InjectMocks
-    private UserConverter userConverter;
+    @Mock UserUtils userUtils;
+    @Mock UserRequestDto userRequestDto;
+    @Mock UserEntity userEntity;
+    @Mock UserResponseDto userResponseDto;
+    @InjectMocks UserConverter userConverter;
 
-    @Mock
-    private UserUtils userUtils;
-
-    @Mock
-    private UserRequestDto userRequestDto;
-
-    @Mock
-    private UserEntity userEntity;
-
-    @Mock
-    private UserResponseDto userResponseDto;
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void convertUserRequestDtoToUserEntity_shouldMapProperly() {
-
         when(userUtils.isAdult(69)).thenReturn(true);
 
         when(userRequestDto.getFirstName()).thenReturn("Foo");
@@ -62,7 +51,6 @@ public class UserConverterTests {
 
     @Test
     public void convertUserEntityUserResponseDtoTo_shouldMapProperly() {
-
         when(userUtils.isAdult(69)).thenReturn(true);
 
         when(userEntity.getFirstName()).thenReturn("Foo");
@@ -84,7 +72,5 @@ public class UserConverterTests {
         assertEquals(actualUserResponseDto.getLastName(), expectedUserResponseDto.getLastName());
         assertEquals(actualUserResponseDto.getAge(), expectedUserResponseDto.getAge());
         assertTrue(actualUserResponseDto.getIsAdult());
-
     }
-
 }

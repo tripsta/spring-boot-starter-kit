@@ -1,10 +1,10 @@
-apply plugin: 'org.springframework.boot'
+apply plugin: "maven-publish"
+jar.enabled = true
 
-bootRepackage.enabled = false
-bootRun.enabled = false
-
-jar {
-    baseName = 'sbsk-service'
+bootJar {
+    mustRunAfter tasks.clean
+    mainClassName = 'sbsk-service'
+    archiveName 'sbsk-service.jar'
 }
 
 dependencies {
@@ -12,18 +12,10 @@ dependencies {
     compile project(':sbsk-persistence')
 
     compile (
-            [group: 'org.powermock', name: 'powermock-api-mockito', version: "${powermockVersion}"],
-            [group: 'org.powermock', name: 'powermock-api-easymock', version: "${powermockVersion}"],
-            [group: 'org.powermock', name: 'powermock-core', version: "${powermockVersion}"],
-            [group: 'org.powermock', name: 'powermock-module-junit4', version: "${powermockVersion}"],
-            [group: 'org.powermock', name: 'powermock-module-junit4-rule', version: "${powermockVersion}"],
-            [group: 'org.powermock', name: 'powermock-module-testng', version: "${powermockVersion}"],
-            [group: 'org.powermock', name: 'powermock-reflect', version: "${powermockVersion}"],
             [group: 'org.springframework.boot', name: 'spring-boot', version: "${springBootVersion}"]
     )
 
     testCompile(
-            [group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"],
-            [group: 'org.mockito', name: 'mockito-core']
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"]
     )
 }

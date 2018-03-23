@@ -33,7 +33,7 @@ public class UserValidator {
 
   public Boolean userExists(Long id) {
     return id != null &&
-            userRepository.exists(id);
+            userRepository.existsById(id);
   }
 
 }

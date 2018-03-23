@@ -1,14 +1,15 @@
 apply plugin: 'org.springframework.boot'
+jar.enabled = true
 
-bootRepackage.enabled = false
-bootRun.enabled = false
-
-jar {
-	baseName = 'sbsk-integration-test'
+bootJar {
+	mustRunAfter tasks.clean
+	mainClassName = 'sbsk-integration-test'
+	archiveName 'sbsk-integration-test.jar'
 }
 
 dependencies {
 	compile project(':sbsk-web')
+	compile 'javax.xml.bind:jaxb-api:2.3.0'
 
 	testCompile(
 			[group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"],
