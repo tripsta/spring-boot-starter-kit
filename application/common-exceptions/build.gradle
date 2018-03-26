@@ -6,9 +6,3 @@ bootJar {
     mainClassName = 'common-exceptions'
     archiveName 'common-exceptions.jar'
 }
-
-dependencies {
-    compile(
-            [group: 'junit', name: 'junit', version: "${jUnitVersion}"]
-    )
-}

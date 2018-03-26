@@ -1,35 +1,36 @@
 package com.sbsk.service.utils;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
+import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("A user should")
 public class UserUtilsTests {
 
   private UserUtils userUtils;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
       userUtils = new UserUtils();
   }
 
   @Test
-  public void isAdult_shouldReturnTrue_whenAgeIsGreaterThanThreshold() {
+  public void beAdultWhenAgeIsGreaterThanThreshold() {
     Integer age = 18;
 
     Boolean result = userUtils.isAdult(age);
 
-    Assert.assertTrue(result);
+    assertThat(result).isTrue();
   }
 
   @Test
-  public void isAdult_shouldReturnFalse_whenAgeIsLessThanThreshold() {
+  public void notBeAdultWhenAgeIsLessThanThreshold() {
     Integer age = 17;
 
     Boolean result = userUtils.isAdult(age);
 
-    assertFalse(result);
+    assertThat(result).isFalse();
   }
 }
