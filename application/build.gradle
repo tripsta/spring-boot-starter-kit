@@ -41,7 +41,13 @@ allprojects {
     }
 
     dependencies {
-        testCompile(
+        compile(
+            [group: 'io.springfox', name: 'springfox-swagger2', version: "${springFoxSwaggerVersion}"],
+            [group: 'io.springfox', name: 'springfox-swagger-ui', version: "${springFoxSwaggerUIVersion}"],
+            [group: 'javax.xml.bind', name: 'jaxb-api', version: "${jaxbAPIVersion}"]
+        )
+
+  	testCompile(
             [group: 'org.junit.vintage', name: 'junit-vintage-engine', version: "${jUnitVintageVersion}"],
             [group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "${jUnitJupiterApiVersion}"],
             [group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: "${jUnitJupiterEngineVersion}"],
