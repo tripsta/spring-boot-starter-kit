@@ -23,8 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 public class SecurityConfigurationTests {
 
-  public static final String ACTUATOR_BEANS = "/actuator/beans";
-  public static final String ACTUATOR_HEALTH = "/actuator/health";
+  public static final String ACTUATOR_BEANS = "/admin/beans";
+  public static final String ACTUATOR_HEALTH = "/admin/health";
   public static final String SWAGGER_UI = "/swagger-ui.html";
 
   @Autowired

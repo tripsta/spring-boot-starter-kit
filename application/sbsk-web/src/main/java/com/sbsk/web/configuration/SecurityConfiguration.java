@@ -21,7 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private static final String[] AUTH_WHITELIST = {
           "/public/**",
-          "/actuator/health",
+          "/admin/health",
           "/publicerror",
           "/swagger-resources/**",
           "/swagger-ui.html",
@@ -30,19 +30,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   };
 
   private static final String[] AUTH_ADMIN = {
-          "/actuator/**"
+          "/admin/**"
   };
 
-  @Value("security.role.user.username")
+  @Value("${security.role.user.username}")
   private String userRoleUsername;
 
-  @Value("security.role.user.password")
+  @Value("${security.role.user.password}")
   private String userRolePassword;
 
-  @Value("security.role.admin.username")
+  @Value("${security.role.admin.username}")
   private String adminRoleUsername;
 
-  @Value("security.role.admin.password")
+  @Value("${security.role.admin.password}")
   private String adminRolePassword;
 
   @Autowired
@@ -65,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    // since we have a stateless API we dont need CSRF
+    // since we have a stateless API we don't need CSRF
     http.csrf().disable();
 
     if (applicationUtils.isDevelopmentProfile()) {
