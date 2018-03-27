@@ -45,27 +45,27 @@ public class UserServiceImplTests {
 
         userServiceImpl.getAllUsers();
 
-        verify(userRepository, times(1)).findAll();
-        verify(userConverter, times(1)).convertUserEntitiesToUserResponseDtos(userEntities);
+        verify(userRepository).findAll();
+        verify(userConverter).convertUserEntitiesToUserResponseDtos(userEntities);
     }
 
     @Test
     public void getUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
-        Long id = new Long(0);
+        Long id = 0L;
         when(userValidator.userExists(id)).thenReturn(true);
         when(userRepository.findById(id)).thenReturn(Optional.of(userEntity));
         when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
 
         userServiceImpl.getUser(id);
 
-        verify(userValidator, times(1)).userExists(id);
-        verify(userRepository, times(1)).findById(id);
-        verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
+        verify(userValidator).userExists(id);
+        verify(userRepository).findById(id);
+        verify(userConverter).convertUserEntityToUserResponseDto(userEntity);
     }
 
     @Test
     public void getUser_shouldRaiseError_whenUserDoesNotExist() {
-        Long id = new Long(0);
+        Long id = 0L;
         when(userValidator.userExists(id)).thenReturn(false);
         when(userRepository.findById(id)).thenReturn(Optional.of(userEntity));
         when(userConverter.convertUserEntityToUserResponseDto(userEntity)).thenReturn(userResponseDto);
@@ -77,9 +77,9 @@ public class UserServiceImplTests {
             assertEquals(e.getMessage(), "User does not exist");
         }
 
-        verify(userValidator, times(1)).userExists(id);
-        verify(userRepository, times(0)).findById(id);
-        verify(userConverter, times(0)).convertUserEntityToUserResponseDto(userEntity);
+        verify(userValidator).userExists(id);
+        verify(userRepository, never()).findById(id);
+        verify(userConverter, never()).convertUserEntityToUserResponseDto(userEntity);
     }
 
     @Test
@@ -90,10 +90,10 @@ public class UserServiceImplTests {
 
         userServiceImpl.createUser(userRequestDto);
 
-        verify(userValidator, times(1)).validateUser(userRequestDto);
-        verify(userConverter, times(1)).convertUserRequestDtoToUserEntity(userRequestDto);
-        verify(userRepository, times(1)).save(userEntity);
-        verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
+        verify(userValidator).validateUser(userRequestDto);
+        verify(userConverter).convertUserRequestDtoToUserEntity(userRequestDto);
+        verify(userRepository).save(userEntity);
+        verify(userConverter).convertUserEntityToUserResponseDto(userEntity);
     }
 
     @Test
@@ -109,15 +109,15 @@ public class UserServiceImplTests {
             assertEquals(e.getMessage(), "Invalid input parameters");
         }
 
-        verify(userValidator, times(1)).validateUser(userRequestDto);
-        verify(userConverter, times(0)).convertUserRequestDtoToUserEntity(userRequestDto);
-        verify(userRepository, times(0)).save(userEntity);
-        verify(userConverter, times(0)).convertUserEntityToUserResponseDto(userEntity);
+        verify(userValidator).validateUser(userRequestDto);
+        verify(userConverter, never()).convertUserRequestDtoToUserEntity(userRequestDto);
+        verify(userRepository, never()).save(userEntity);
+        verify(userConverter, never()).convertUserEntityToUserResponseDto(userEntity);
     }
 
     @Test
     public void updateUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
-        when(userEntity.getId()).thenReturn(new Long(1));
+        when(userEntity.getId()).thenReturn(1L);
         when(userValidator.userExists(userEntity.getId())).thenReturn(true);
         when(userValidator.validateUser(userRequestDto)).thenReturn(true);
         when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
@@ -126,16 +126,16 @@ public class UserServiceImplTests {
         userServiceImpl.updateUser(userEntity.getId(), userRequestDto);
 
         verify(userValidator,times(1)).userExists(userEntity.getId());
-        verify(userValidator, times(1)).validateUser(userRequestDto);
-        verify(userConverter, times(1)).convertUserRequestDtoToUserEntity(userRequestDto);
-        verify(userEntity, times(1)).setId(anyLong());
-        verify(userRepository, times(1)).save(userEntity);
-        verify(userConverter, times(1)).convertUserEntityToUserResponseDto(userEntity);
+        verify(userValidator).validateUser(userRequestDto);
+        verify(userConverter).convertUserRequestDtoToUserEntity(userRequestDto);
+        verify(userEntity).setId(anyLong());
+        verify(userRepository).save(userEntity);
+        verify(userConverter).convertUserEntityToUserResponseDto(userEntity);
     }
 
     @Test
     public void updateUser_shouldRaiseError_whenSomethingIsNotValidatedCorrectly() {
-        when(userEntity.getId()).thenReturn(new Long(1));
+        when(userEntity.getId()).thenReturn(1L);
         when(userValidator.userExists(userEntity.getId())).thenReturn(true);
         when(userValidator.validateUser(userRequestDto)).thenReturn(false);
         when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
@@ -148,17 +148,17 @@ public class UserServiceImplTests {
             assertEquals(e.getMessage(), "Invalid input parameters");
         }
 
-        verify(userValidator, times(1)).userExists(userEntity.getId());
-        verify(userValidator, times(1)).validateUser(userRequestDto);
-        verify(userConverter, times(0)).convertUserRequestDtoToUserEntity(userRequestDto);
-        verify(userEntity, times(0)).setId(anyLong());
-        verify(userRepository, times(0)).save(userEntity);
-        verify(userConverter, times(0)).convertUserEntityToUserResponseDto(userEntity);
+        verify(userValidator).userExists(userEntity.getId());
+        verify(userValidator).validateUser(userRequestDto);
+        verify(userConverter, never()).convertUserRequestDtoToUserEntity(userRequestDto);
+        verify(userEntity, never()).setId(anyLong());
+        verify(userRepository, never()).save(userEntity);
+        verify(userConverter, never()).convertUserEntityToUserResponseDto(userEntity);
     }
 
     @Test
     public void updateUser_shouldRaiseError_whenUserDoesNotExist() {
-        when(userEntity.getId()).thenReturn(new Long(1));
+        when(userEntity.getId()).thenReturn(1L);
         when(userValidator.userExists(userEntity.getId())).thenReturn(false);
         when(userValidator.validateUser(userRequestDto)).thenReturn(true);
         when(userConverter.convertUserRequestDtoToUserEntity(userRequestDto)).thenReturn(userEntity);
@@ -171,29 +171,29 @@ public class UserServiceImplTests {
             assertEquals(e.getMessage(), "User does not exist");
         }
 
-        verify(userValidator, times(1)).userExists(userEntity.getId());
-        verify(userValidator, times(0)).validateUser(userRequestDto);
-        verify(userConverter, times(0)).convertUserRequestDtoToUserEntity(userRequestDto);
-        verify(userEntity, times(0)).setId(anyLong());
-        verify(userRepository, times(0)).save(userEntity);
-        verify(userConverter, times(0)).convertUserEntityToUserResponseDto(userEntity);
+        verify(userValidator).userExists(userEntity.getId());
+        verify(userValidator, never()).validateUser(userRequestDto);
+        verify(userConverter, never()).convertUserRequestDtoToUserEntity(userRequestDto);
+        verify(userEntity, never()).setId(anyLong());
+        verify(userRepository, never()).save(userEntity);
+        verify(userConverter, never()).convertUserEntityToUserResponseDto(userEntity);
     }
 
     @Test
     public void deleteUser_shouldFollowTheRightFlow_whenEverythingIsValidatedCorrectly() {
-        Long id = new Long(0);
+        Long id = 0L;
 
         when(userValidator.userExists(id)).thenReturn(true);
 
         userServiceImpl.deleteUser(id);
 
-        verify(userValidator, times(1)).userExists(id);
-        verify(userRepository, times(1)).deleteById(id);
+        verify(userValidator).userExists(id);
+        verify(userRepository).deleteById(id);
     }
 
     @Test
     public void deleteUser_shouldRaiseError_whenUserDoesNotExist() {
-        Long id = new Long(0);
+        Long id = 0L;
 
         when(userValidator.userExists(id)).thenReturn(false);
 
@@ -204,7 +204,7 @@ public class UserServiceImplTests {
             assertEquals(e.getMessage(), "User does not exist");
         }
 
-        verify(userValidator, times(1)).userExists(id);
-        verify(userRepository, times(0)).deleteById(id);
+        verify(userValidator).userExists(id);
+        verify(userRepository, never()).deleteById(id);
     }
 }
