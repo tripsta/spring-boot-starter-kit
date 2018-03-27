@@ -1,0 +1,9 @@
+<included>
+    <property name="TAG" value="fluentd.sbsk.production.application"/>
+    <property name="LABEL" value="web"/>
+    <property name="ENVIRONMENT" value="production"/>
+    <property name="REMOTE_HOST" value="127.0.0.1"/>
+    <property name="REMOTE_PORT" value="24224"/>
+    <property name="MAX_THREADS" value="4"/>
+    <property name="LOG_LEVEL" value="INFO"/>
+</included>
