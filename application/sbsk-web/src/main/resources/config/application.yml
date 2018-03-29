@@ -38,5 +38,7 @@ logging:
 management:
   endpoints:
     web:
+      base-path: /admin
       exposure:
-        include: health, info, beans
+        include: health, info, beans, mappings, configprops, env
+

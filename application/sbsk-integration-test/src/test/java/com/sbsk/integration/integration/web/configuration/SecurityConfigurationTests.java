@@ -23,7 +23,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 public class SecurityConfigurationTests {
 
-  private static String URI;
+  public static final String ACTUATOR_BEANS = "/admin/beans";
+  public static final String ACTUATOR_HEALTH = "/admin/health";
+  public static final String SWAGGER_UI = "/swagger-ui.html";
+
   @Autowired
   private WebApplicationContext webApplicationContext;
   @Autowired
@@ -33,7 +36,6 @@ public class SecurityConfigurationTests {
   @Before
   public void setUp() {
     mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
-    URI = environment.getProperty("api.basepath");
   }
 
   @Test
@@ -43,7 +45,7 @@ public class SecurityConfigurationTests {
       roles = "USER"
   )
   public void user_shouldNotBeAbleToAccessAdminPages() throws Exception {
-    mockMvc.perform(get("/actuator/beans"))
+    mockMvc.perform(get(ACTUATOR_BEANS))
         .andExpect(status().isForbidden());
   }
 
@@ -54,8 +56,19 @@ public class SecurityConfigurationTests {
       roles = "USER"
   )
   public void user_shouldBeAbleToAccessHealthPage() throws Exception {
-    mockMvc.perform(get("/actuator/health"))
+    mockMvc.perform(get(ACTUATOR_HEALTH))
         .andExpect(status().isOk());
+  }
+
+  @Test
+  @WithMockUser(
+          username = "dionisis",
+          password = "12345",
+          roles = "USER"
+  )
+  public void user_shouldBeAbleToAccessSwaggerPage() throws Exception {
+    mockMvc.perform(get(SWAGGER_UI))
+            .andExpect(status().isOk());
   }
 
   @Test
@@ -65,7 +78,7 @@ public class SecurityConfigurationTests {
       roles = "ADMIN"
   )
   public void admin_shouldBeAbleToAccessAdminPages() throws Exception {
-    mockMvc.perform(get("/actuator/beans"))
+    mockMvc.perform(get(ACTUATOR_BEANS))
         .andExpect(status().isOk());
   }
 }
