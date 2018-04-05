@@ -1,5 +1,5 @@
 # Spring boot starter kit
-An opiniated kit to start hacking in SpringBoot
+An opinionated kit to start hacking in SpringBoot
 
 # What is included?
 
