@@ -22,5 +22,11 @@ cd application
 ./gradlew clean build
 ./gradlew test
 ./gradlew codeCoverage
-SPRING_PROFILES_ACTIVE=development ./gradlew bootRun  # open http://localhost:8080/api/v1/user/get?name=Your name
+SPRING_PROFILES_ACTIVE=development ./gradlew sbsk-web:bootRun
 ```
+
+## Verify running application
+
+- to check a simple endpoint open http://localhost:8080/api/v1/user/get?name=Your name
+- to chech all active endpoints open http://localhost:8080/swagger-ui.html#/operation-handler
+- to check the api you can also use the postman collections in `documentation/api/postman`
