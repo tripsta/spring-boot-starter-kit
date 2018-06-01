@@ -44,7 +44,10 @@ allprojects {
         compile(
             [group: 'io.springfox', name: 'springfox-swagger2', version: "${springFoxSwaggerVersion}"],
             [group: 'io.springfox', name: 'springfox-swagger-ui', version: "${springFoxSwaggerUIVersion}"],
-            [group: 'javax.xml.bind', name: 'jaxb-api', version: "${jaxbAPIVersion}"]
+            [group: 'javax.xml.bind', name: 'jaxb-api', version: "${jaxbAPIVersion}"],
+            [group: 'com.graphql-java', name: 'graphql-spring-boot-starter', version: "${graphqlSpringBootStarterVersion}"],
+            [group: 'com.graphql-java', name: 'graphql-java-tools', version: "${graphqlJavaToolsVersion}"],
+            [group: 'com.graphql-java', name: 'graphiql-spring-boot-starter', version: "${graphiqlSpringBootStarterVersion}"]
         )
 
   	testCompile(
