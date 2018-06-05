@@ -1,0 +1,18 @@
+apply plugin: "maven-publish"
+jar.enabled = true
+
+bootJar {
+	mustRunAfter tasks.clean
+	mainClassName = 'common-gearman-client'
+	archiveName 'common-gearman-client.jar'
+}
+
+dependencies {
+
+    compile(
+            [group: 'org.springframework.boot', name: 'spring-boot-starter', version: "${springBootVersion}"],
+			[group: 'org.gearman', name: 'gearman-java', version: "${gearmanVersion}"],
+			[group: 'commons-beanutils', name: 'commons-beanutils', version: "${beanUtilsVersion}"]
+	)
+}
+apply plugin: 'java'

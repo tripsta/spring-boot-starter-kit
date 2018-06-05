@@ -9,3 +9,5 @@ include 'sbsk-persistence'
 include 'sbsk-integration-test'
 
 include 'common-exceptions'
+
+include 'common-gearman-client'

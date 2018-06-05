@@ -10,6 +10,7 @@ bootJar {
 dependencies {
     compile project(':sbsk-dto')
     compile project(':sbsk-persistence')
+    compile project(':common-gearman-client')
 
     compile (
             [group: 'org.springframework.boot', name: 'spring-boot', version: "${springBootVersion}"]
