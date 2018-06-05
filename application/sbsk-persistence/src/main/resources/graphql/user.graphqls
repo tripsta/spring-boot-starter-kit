@@ -5,8 +5,15 @@ type User {
     isAdult: Boolean!
 }
 
+type Location {
+    resources: String
+    mappings: String
+    locale: String
+}
+
 type Query {
     users: [User]
+    locations: [Location]
 }
 
 type Mutation {

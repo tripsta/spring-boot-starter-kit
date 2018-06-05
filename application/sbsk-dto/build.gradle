@@ -9,6 +9,7 @@ bootJar {
 
 dependencies {
 	compile project(':common-exceptions')
+    compile project(':common-gearman-client')
 
     compile(
             [group: 'ch.qos.logback', name: 'logback-classic', version: "${logbackClassicVersion}"],

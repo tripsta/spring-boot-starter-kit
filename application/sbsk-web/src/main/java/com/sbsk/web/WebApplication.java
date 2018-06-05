@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.sbsk"})
+@ComponentScan(basePackages = {"com.sbsk", "common"})
 @EnableJpaRepositories(basePackages = {"com.sbsk.persistence.repositories"})
 @EntityScan(value = "com.sbsk.persistence.entities")
 public class WebApplication {
